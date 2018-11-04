@@ -26,8 +26,8 @@ class Atividade {
         int horasDisponiveisPorDia = 0;
         Pessoa** pessoas;
         int quantidadeDePessoas = 0;
-
-    public:
+        
+    public: 
         Atividade(string nome, int horasNecessarias);
         ~Atividade();
 

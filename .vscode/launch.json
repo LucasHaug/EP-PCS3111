@@ -8,10 +8,10 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "C:/Users/lucas/OneDrive/PCS3111 - copia/EP1.exe",
+            "program": "${workspaceFolder}/EP1.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "C:/Users/lucas/OneDrive/PCS3111 - copia",
+            "cwd": "${workspaceFolder}/",
             "environment": [],
             "sourceFileMap": {
                 "/c/": "C:/",

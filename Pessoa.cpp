@@ -14,8 +14,8 @@
 
 using namespace std;
 
-Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias) :
-    nome(nome), valorPorHora(valorPorHora), horasDiarias(horasDiarias) {
+Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias) : 
+    nome(nome), valorPorHora(valorPorHora), horasDiarias(horasDiarias) { 
 }
 
 Pessoa::~Pessoa() {

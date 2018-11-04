@@ -23,10 +23,10 @@ class Projeto
 {
     private:
         string nome = nullptr;
-
+        
         int quantidadeDePessoasNoProjeto = 0;
         Pessoa** pessoasNoProjeto;
-
+        
         int quantidadeDeAtividades = 0;
         Atividade** atividades;
 

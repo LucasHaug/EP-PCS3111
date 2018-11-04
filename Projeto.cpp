@@ -40,7 +40,7 @@ string Projeto::getNome() {
 
 bool Projeto::adicionar(Atividade* a) {
 
-    if (quantidadeDeAtividades <= MAXIMO_ATIVIDADES) {
+    if (quantidadeDeAtividades < MAXIMO_ATIVIDADES) {
         atividades[quantidadeDeAtividades] = a;
         quantidadeDeAtividades++;
         return true;

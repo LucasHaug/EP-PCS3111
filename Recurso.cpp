@@ -8,37 +8,14 @@
 /**                                                           **/
 /***************************************************************/
 
-#include <cmath>
+#include "Recurso.h"
 
-#include "Pessoa.h"
-
-using namespace std;
-
-Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias) :
-    nome(nome), valorPorHora(valorPorHora), horasDiarias(horasDiarias) {
+Recurso::Recurso(string nome) : nome(nome) {
 }
 
-Pessoa::~Pessoa() {
+Recurso::~Recurso() {
 }
 
-string Pessoa::getNome() {
+string Recurso::getNome() {
     return nome;
-}
-
-double Pessoa::getValorPorHora() {
-    return valorPorHora;
-}
-
-int Pessoa::getHorasDiarias() {
-    return horasDiarias;
-}
-
-double Pessoa::getCusto(int dias) {
-    double custo = dias*horasDiarias*valorPorHora;
-    return custo;
-}
-
-void Pessoa::imprimir() {
-    cout << nome << " - R$" << valorPorHora;
-    cout << " - " << horasDiarias << "h por dia" << endl;
 }

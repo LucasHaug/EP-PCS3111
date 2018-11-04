@@ -2,7 +2,7 @@
 /**                                                           **/
 /**   Aluno: Lucas Haug                                       **/
 /**   Número USP: 10773565                                    **/
-/**   Exercicio-Programa 1                                    **/
+/**   Exercicio-Programa 2                                    **/
 /**   Disciplina: PCS3111                                     **/
 /**   Turma: T3T                                              **/
 /**                                                           **/
@@ -26,8 +26,8 @@ class Atividade {
         int horasDisponiveisPorDia = 0;
         Pessoa** pessoas;
         int quantidadeDePessoas = 0;
-        
-    public: 
+
+    public:
         Atividade(string nome, int horasNecessarias);
         ~Atividade();
 

@@ -2,7 +2,7 @@
 /**                                                           **/
 /**   Aluno: Lucas Haug                                       **/
 /**   Número USP: 10773565                                    **/
-/**   Exercicio-Programa 1                                    **/
+/**   Exercicio-Programa 2                                    **/
 /**   Disciplina: PCS3111                                     **/
 /**   Turma: T3T                                              **/
 /**                                                           **/
@@ -16,8 +16,7 @@
 
 using namespace std;
 
-class Pessoa
-{
+class Pessoa : public Recurso {
     private:
         string nome = nullptr;
         double valorPorHora = 0;
@@ -25,13 +24,17 @@ class Pessoa
 
     public:
         Pessoa(string nome, double valorPorHora, int horasDiarias);
-        ~Pessoa();
+        Pessoa(string nome, int horasDiarias);
+        virtual ~Pessoa();
 
-        string getNome();
-        double getValorPorHora();
-        int getHorasDiarias();
+        virtual double getValorPorHora();
+        virtual int getHorasDiarias();
+        virtual bool recebeValorPadrao();
+
+        static void setValorPorHoraPadrao(double valor);
+        static double getValorPorHoraPadrao();
+
         double getCusto(int dias);
-
         void imprimir();
 };
 

@@ -8,37 +8,24 @@
 /**                                                           **/
 /***************************************************************/
 
-#include <cmath>
+#ifndef _RECURSO_H_
+#define _RECURSO_H_
 
-#include "Pessoa.h"
+#include <string>
 
 using namespace std;
 
-Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias) :
-    nome(nome), valorPorHora(valorPorHora), horasDiarias(horasDiarias) {
-}
+class Recurso {
+    protected: //@
+        string nome;
 
-Pessoa::~Pessoa() {
-}
+    public:
+        Recurso(string nome);
+        virtual ~Recurso();
 
-string Pessoa::getNome() {
-    return nome;
-}
+        virtual string getNome();
+        virtual double getCusto(int dias) = 0;
+        virtual void imprimir() = 0;
+};
 
-double Pessoa::getValorPorHora() {
-    return valorPorHora;
-}
-
-int Pessoa::getHorasDiarias() {
-    return horasDiarias;
-}
-
-double Pessoa::getCusto(int dias) {
-    double custo = dias*horasDiarias*valorPorHora;
-    return custo;
-}
-
-void Pessoa::imprimir() {
-    cout << nome << " - R$" << valorPorHora;
-    cout << " - " << horasDiarias << "h por dia" << endl;
-}
+#endif // _RECURSO_H_

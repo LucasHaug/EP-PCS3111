@@ -8,37 +8,35 @@
 /**                                                           **/
 /***************************************************************/
 
-#include <cmath>
+#include "Ferramenta.h"
 
-#include "Pessoa.h"
+#include <stdexcept>
+#include <iostream>
 
 using namespace std;
 
-Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias) :
-    nome(nome), valorPorHora(valorPorHora), horasDiarias(horasDiarias) {
+Ferramenta::Ferramenta(string nome, double custoDiario) : Recurso(string) {
+    if(custoDiario < 0) {
+        throw new invalid_argument(""); //@
+    }
+    this->nome = nome; //@
+    this->custoDiario = custoDiario;
 }
 
-Pessoa::~Pessoa() {
+Ferramenta::~Ferramenta() {
 }
 
-string Pessoa::getNome() {
-    return nome;
+double Ferramenta::getCustoDiario() {
+    return custoDiario;
 }
 
-double Pessoa::getValorPorHora() {
-    return valorPorHora;
+double Ferramenta::getCusto(int dias) {
+    if (dias =< 0) {
+        throw new invalid_argument(""); //@
+    }
+    return (dias * custoDiario);
 }
 
-int Pessoa::getHorasDiarias() {
-    return horasDiarias;
-}
-
-double Pessoa::getCusto(int dias) {
-    double custo = dias*horasDiarias*valorPorHora;
-    return custo;
-}
-
-void Pessoa::imprimir() {
-    cout << nome << " - R$" << valorPorHora;
-    cout << " - " << horasDiarias << "h por dia" << endl;
+void Ferramenta::imprimir() {
+    cout << "Ferramenta: " << nome << " - R$" << custoDiario << " por dia";
 }

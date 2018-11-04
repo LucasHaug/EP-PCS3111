@@ -8,37 +8,25 @@
 /**                                                           **/
 /***************************************************************/
 
-#include <cmath>
+#ifndef _FERRAMENTA_H_
+#define _FERRAMENTA_H_
 
-#include "Pessoa.h"
+#include <string>
 
 using namespace std;
 
-Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias) :
-    nome(nome), valorPorHora(valorPorHora), horasDiarias(horasDiarias) {
-}
+class Ferramenta : public Recurso {
+    private: //@
+        double custoDiario;
 
-Pessoa::~Pessoa() {
-}
+    public:
+        Ferramenta(string nome, double custoDiario);
+        virtual ~Ferramenta();
 
-string Pessoa::getNome() {
-    return nome;
-}
+        virtual double getCustoDiario();
 
-double Pessoa::getValorPorHora() {
-    return valorPorHora;
-}
+        double getCusto(int dias);
+        void imprimir();
+};
 
-int Pessoa::getHorasDiarias() {
-    return horasDiarias;
-}
-
-double Pessoa::getCusto(int dias) {
-    double custo = dias*horasDiarias*valorPorHora;
-    return custo;
-}
-
-void Pessoa::imprimir() {
-    cout << nome << " - R$" << valorPorHora;
-    cout << " - " << horasDiarias << "h por dia" << endl;
-}
+#endif // _FERRAMENTA_H_

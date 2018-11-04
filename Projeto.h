@@ -2,7 +2,7 @@
 /**                                                           **/
 /**   Aluno: Lucas Haug                                       **/
 /**   Número USP: 10773565                                    **/
-/**   Exercicio-Programa 1                                    **/
+/**   Exercicio-Programa 2                                    **/
 /**   Disciplina: PCS3111                                     **/
 /**   Turma: T3T                                              **/
 /**                                                           **/
@@ -19,14 +19,13 @@
 
 using namespace std;
 
-class Projeto
-{
+class Projeto {
     private:
         string nome = nullptr;
-        
+
         int quantidadeDePessoasNoProjeto = 0;
         Pessoa** pessoasNoProjeto;
-        
+
         int quantidadeDeAtividades = 0;
         Atividade** atividades;
 

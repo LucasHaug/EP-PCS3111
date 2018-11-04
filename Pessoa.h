@@ -11,6 +11,8 @@
 #ifndef _PESSOA_H_
 #define _PESSOA_H_
 
+#include "Recurso.h"
+
 #include <iostream>
 #include <string>
 
@@ -24,15 +26,15 @@ class Pessoa : public Recurso {
 
     public:
         Pessoa(string nome, double valorPorHora, int horasDiarias);
-        Pessoa(string nome, int horasDiarias);
+        // Pessoa(string nome, int horasDiarias); //@
         virtual ~Pessoa();
 
         virtual double getValorPorHora();
         virtual int getHorasDiarias();
-        virtual bool recebeValorPadrao();
+        // virtual bool recebeValorPadrao(); //@
 
-        static void setValorPorHoraPadrao(double valor);
-        static double getValorPorHoraPadrao();
+        // static void setValorPorHoraPadrao(double valor); //@
+        // static double getValorPorHoraPadrao(); //@
 
         double getCusto(int dias);
         void imprimir();

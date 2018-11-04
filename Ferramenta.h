@@ -11,6 +11,8 @@
 #ifndef _FERRAMENTA_H_
 #define _FERRAMENTA_H_
 
+#include "Recurso.h"
+
 #include <string>
 
 using namespace std;

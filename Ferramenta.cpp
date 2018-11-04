@@ -15,7 +15,7 @@
 
 using namespace std;
 
-Ferramenta::Ferramenta(string nome, double custoDiario) : Recurso(string) {
+Ferramenta::Ferramenta(string nome, double custoDiario) : Recurso(nome) {
     if(custoDiario < 0) {
         throw new invalid_argument(""); //@
     }
@@ -31,7 +31,7 @@ double Ferramenta::getCustoDiario() {
 }
 
 double Ferramenta::getCusto(int dias) {
-    if (dias =< 0) {
+    if (dias <= 0) {
         throw new invalid_argument(""); //@
     }
     return (dias * custoDiario);

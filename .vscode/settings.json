@@ -1,0 +1,33 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "cstdint": "cpp",
+        "string": "cpp",
+        "cmath": "cpp",
+        "cstdlib": "cpp",
+        "*.tcc": "cpp",
+        "cctype": "cpp",
+        "clocale": "cpp",
+        "cstdio": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "exception": "cpp",
+        "initializer_list": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "new": "cpp",
+        "stdexcept": "cpp",
+        "streambuf": "cpp",
+        "string_view": "cpp",
+        "system_error": "cpp",
+        "type_traits": "cpp",
+        "typeinfo": "cpp"
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "editor.renderWhitespace": "all",
+    "files.autoSave": "afterDelay",
+    "C_Cpp.default.browse.path": null,
+    "C_Cpp.intelliSenseEngine": "Tag Parser"
+}

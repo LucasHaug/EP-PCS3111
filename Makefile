@@ -1,12 +1,12 @@
 BUILD_DIR := build
-TARGET := EP1
+TARGET := EP2
 
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
 
 .PHONY: all clean run format
 
-all: $(BUILD_DIR) EP1
+all: $(BUILD_DIR) EP2
 
 $(BUILD_DIR):
 	@echo "Creating build directory"
@@ -20,17 +20,17 @@ ifeq ($(OS), Windows_NT)
 	rm $(BUILD_DIR)/*.o *.exe
 	rmdir $(BUILD_DIR)
 else
-	rm $(BUILD_DIR)/*.o EP1
+	rm $(BUILD_DIR)/*.o EP2
 	rmdir $(BUILD_DIR)
 endif
 
-EP1: $(OBJECTS)
-	g++ -g -Wall -Wextra -o EP1 $(OBJECTS)
+EP2: $(OBJECTS)
+	g++ -g -Wall -Wextra -o EP2 $(OBJECTS)
 
 run: all
 ifeq ($(OS), Windows_NT)
-	start powershell -NoExit ./EP1
+	start powershell -NoExit ./EP2
 else
-	tilda -c ./EP1
+	tilda -c ./EP2
 endif
 

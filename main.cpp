@@ -66,7 +66,7 @@ int main() {
                 return 0;
             default:
                 cout << endl << " Digite uma opcao valida..." << endl;
-                break;
+break;
         }
     }
 }

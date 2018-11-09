@@ -11,38 +11,43 @@
 #ifndef _ATIVIDADE_H_
 #define _ATIVIDADE_H_
 
-#include <string>
 #include <cstdint>
+#include <string>
+
 #include "Pessoa.h"
 
-#define MAXIMO_RECURSOS 10
-
-using namespace std;
-
 class Atividade {
-    private:
-        string nome = nullptr;
-        int horasNecessarias = 0;
-        int horasDisponiveisPorDia = 0;
-        Pessoa** pessoas;
-        int quantidadeDePessoas = 0;
+   private:
+    std::string nome = nullptr;
+    int horasNecessarias = 0; //@
+    int horasDisponiveisPorDia = 0;
+    Pessoa** pessoas;
+    int quantidadeDePessoas = 0;
 
-    public:
-        Atividade(string nome, int horasNecessarias);
-        ~Atividade();
+   public:
+    // Atividade(std::string nome, int horasNecessarias); //@
+    Atividade(std::string nome);
+    virtual ~Atividade();
 
-        string getNome();
-        int getHorasNecessarias();
+    virtual std::string getNome();
+    // int getHorasNecessarias(); //@
 
-        bool adicionar(Pessoa* recurso);
-        Pessoa** getPessoas();
-        int getQuantidadeDePessoas();
+    // bool adicionar(Pessoa* recurso); //@
+    virtual void adicionar(Recurso* r);
+    // Pessoa** getPessoas(); //@
+    virtual Recurso** getRecurso();
+    // int getQuantidadeDePessoas(); //@
+    virtual int getQuantidadeDeRecursos();
 
-        int getDuracao();
+    virtual int getDuracao();
+    virtual double getCusto();
 
-        double getCusto();
+    virtual void terminar(int duracaoReal); //@
+    virtual bool estaTerminada(); //@
 
-        void imprimir();
+    void imprimir();
+
+    static const MAXIMO_RECURSOS = 10;
 };
 
-#endif // _ATIVIDADE_H_
+#endif  // _ATIVIDADE_H_

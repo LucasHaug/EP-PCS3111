@@ -1,4 +1,4 @@
-/***************************************************************/
+/** : std::stringtringg*******************************************/
 /**                                                           **/
 /**   Aluno: Lucas Haug                                       **/
 /**   Número USP: 10773565                                    **/
@@ -37,7 +37,7 @@ void opcaoDois(Projeto *proj);
 
 int main() {
     int opcao;
-    string nomeDoProjeto;
+    std::string nomeDoProjeto;
 
     cout << endl << " Bem Vindo ao PoliTrello!" << endl;
 
@@ -97,7 +97,7 @@ int menuDeOpcoes() {
 // apresenta a interface com o usuario,
 // caso ele tenha escolhido a opcao um
 void opcaoUm(Projeto* proj) {
-    string nome;
+    std::string nome;
     double valorPorHora;
     int horasDiarias;
 
@@ -128,7 +128,7 @@ void opcaoUm(Projeto* proj) {
 // apresenta a interface com o usuario,
 // caso ele tenha escolhido a opcao dois
 void opcaoDois(Projeto* proj) {
-    string nome;
+    std::string nome;
     int horasNecessarias;
 
     cout << endl << " Adicionar Atividade:" << endl << endl;

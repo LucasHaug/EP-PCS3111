@@ -10,12 +10,15 @@
 
 #include "Recurso.h"
 
-Recurso::Recurso(string nome) : nome(nome) {
+Recurso::Recurso(std::string nome) : nome(nome)
+{
 }
 
-Recurso::~Recurso() {
+Recurso::~Recurso()
+{
 }
 
-string Recurso::getNome() {
+std::string Recurso::getNome()
+{
     return nome;
 }

@@ -17,36 +17,35 @@
 
 #define MAXIMO_ATIVIDADES 10
 
-using namespace std;
+class Projeto
+{
+  private:
+    std::string nome = nullptr;
 
-class Projeto {
-    private:
-        string nome = nullptr;
+    int quantidadeDePessoasNoProjeto = 0;
+    Pessoa **pessoasNoProjeto;
 
-        int quantidadeDePessoasNoProjeto = 0;
-        Pessoa** pessoasNoProjeto;
+    int quantidadeDeAtividades = 0;
+    Atividade **atividades;
 
-        int quantidadeDeAtividades = 0;
-        Atividade** atividades;
+  public:
+    Projeto(std::string nome);
+    ~Projeto();
 
-    public:
-        Projeto(string nome);
-        ~Projeto();
+    std::string getNome();
 
-        string getNome();
+    bool adicionar(Atividade *a);
+    Atividade **getAtividades();
+    int getQuantidadeDeAtividades();
 
-        bool adicionar(Atividade* a);
-        Atividade** getAtividades();
-        int getQuantidadeDeAtividades();
+    bool adicionarRecurso(Pessoa *p);
+    Pessoa **getPessoas();
+    int getQuantidadeDePessoas();
 
-        bool adicionarRecurso(Pessoa* p);
-        Pessoa** getPessoas();
-        int getQuantidadeDePessoas();
+    int getDuracao();
+    double getCusto();
 
-        int getDuracao();
-        double getCusto();
-
-        void imprimir();
+    void imprimir();
 };
 
 #endif // _PROJETO_H_

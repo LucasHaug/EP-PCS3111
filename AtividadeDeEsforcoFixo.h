@@ -11,6 +11,9 @@
 #ifndef _ATIVIDADE_DE_ESFORCO_FIXO_H_
 #define _ATIVIDADE_DE_ESFORCO_FIXO_H_
 
-
+class AtividadeDeEsforcoFixo : public Atividade {
+    private:
+    public:
+};
 
 #endif // _ATIVIDADE_DE_ESFORCO_FIXO_H_

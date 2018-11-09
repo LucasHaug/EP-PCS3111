@@ -10,20 +10,21 @@
 
 #include "Ferramenta.h"
 
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
-Ferramenta::Ferramenta(string nome, double custoDiario) : Recurso(nome) {
-    if(custoDiario < 0) {
-        throw new invalid_argument(""); //@
+Ferramenta::Ferramenta(std::string nome, double custoDiario) : Recurso(nome) {
+    if (custoDiario < 0) {
+        throw new invalid_argument("");  //@
     }
-    this->nome = nome; //@
+    this->nome = nome;  //@
     this->custoDiario = custoDiario;
 }
 
 Ferramenta::~Ferramenta() {
+    // Destrutor
 }
 
 double Ferramenta::getCustoDiario() {
@@ -32,7 +33,7 @@ double Ferramenta::getCustoDiario() {
 
 double Ferramenta::getCusto(int dias) {
     if (dias <= 0) {
-        throw new invalid_argument(""); //@
+        throw new invalid_argument("");  //@
     }
     return (dias * custoDiario);
 }

@@ -13,19 +13,18 @@
 
 #include <string>
 
-using namespace std;
+class Recurso
+{
+  protected: //@
+    std::string nome;
 
-class Recurso {
-    protected: //@
-        string nome;
+  public:
+    Recurso(std::string nome);
+    virtual ~Recurso();
 
-    public:
-        Recurso(string nome);
-        virtual ~Recurso();
-
-        virtual string getNome();
-        virtual double getCusto(int dias) = 0;
-        virtual void imprimir() = 0;
+    virtual std::string getNome();
+    virtual double getCusto(int dias) = 0;
+    virtual void imprimir() = 0;
 };
 
 #endif // _RECURSO_H_

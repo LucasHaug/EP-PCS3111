@@ -11,6 +11,10 @@
 #ifndef _ATIVIDADE_DE_PRAZO_FIXO_H_
 #define _ATIVIDADE_DE_PRAZO_FIXO_H_
 
+class AtividadeDePrazoFixo : public Atividade {
+    private:
+    public:
 
+};
 
 #endif // _ATIVIDADE_DE_PRAZO_FIXO_H_

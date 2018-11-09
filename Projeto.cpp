@@ -16,7 +16,7 @@
 
 using namespace std;
 
-Projeto::Projeto(string nome) :
+Projeto::Projeto(std::string nome) :
     nome(nome) {
     pessoasNoProjeto = new Pessoa*[MAXIMO_RECURSOS];
     atividades = new Atividade*[MAXIMO_ATIVIDADES];
@@ -34,7 +34,7 @@ Projeto::~Projeto() {
     delete[] atividades;
 }
 
-string Projeto::getNome() {
+std::string Projeto::getNome() {
     return nome;
 }
 

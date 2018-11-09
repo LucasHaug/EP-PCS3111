@@ -15,8 +15,12 @@
 
 using namespace std;
 
-Atividade::Atividade(string nome, int horasNecessarias) :
-    nome(nome), horasNecessarias(horasNecessarias) {
+Atividade::Atividade(std::string nome, int horasNecessarias)
+    : nome(nome), horasNecessarias(horasNecessarias) {
+    pessoas = new Pessoa*[MAXIMO_RECURSOS];
+}  //@
+
+Atividade::Atividade(std::string nome) : nome(nome) {
     pessoas = new Pessoa*[MAXIMO_RECURSOS];
 }
 
@@ -24,7 +28,7 @@ Atividade::~Atividade() {
     delete[] pessoas;
 }
 
-string Atividade::getNome() {
+std::string Atividade::getNome() {
     return nome;
 }
 
@@ -38,7 +42,7 @@ bool Atividade::adicionar(Pessoa* recurso) {
 
     for (int i = 0; i < quantidadeDePessoas && !estaNaAtividade; i++) {
         if (pessoas[i] == recurso) {
-                estaNaAtividade = true;
+            estaNaAtividade = true;
         }
     }
 
@@ -48,8 +52,7 @@ bool Atividade::adicionar(Pessoa* recurso) {
         horasDisponiveisPorDia += recurso->getHorasDiarias();
         quantidadeDePessoas++;
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -66,15 +69,14 @@ int Atividade::getDuracao() {
     double duracao;
 
     if (quantidadeDePessoas != 0 && horasDisponiveisPorDia != 0) {
-        duracao = (double) horasNecessarias/horasDisponiveisPorDia;
+        duracao = (double)horasNecessarias / horasDisponiveisPorDia;
         return ceil(duracao);
     }
     // impede a divisao por zero
     else if (quantidadeDePessoas != 0 && horasDisponiveisPorDia == 0) {
         duracao = 0;
         return duracao;
-    }
-    else {
+    } else {
         return -1;
     }
 }
@@ -88,8 +90,7 @@ double Atividade::getCusto() {
             custo += pessoas[i]->getCusto(duracao);
         }
         return custo;
-    }
-    else {
+    } else {
         return -1;
     }
 }
@@ -100,10 +101,11 @@ void Atividade::imprimir() {
 
     if (duracaoAtividade != -1 && custoAtividade != -1) {
         cout << " " << nome << " - " << duracaoAtividade;
-        cout  << " dia(s) - R$" << custoAtividade << endl;
-    }
-    else {
-        cout << " " << nome << " - " << " NAO HA INFORMCAO ";
-        cout  << " dia(s) - R$" << " NAO HA INFORMCAO " << endl;
+        cout << " dia(s) - R$" << custoAtividade << endl;
+    } else {
+        cout << " " << nome << " - "
+             << " NAO HA INFORMCAO ";
+        cout << " dia(s) - R$"
+             << " NAO HA INFORMCAO " << endl;
     }
 }

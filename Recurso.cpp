@@ -10,15 +10,14 @@
 
 #include "Recurso.h"
 
-Recurso::Recurso(std::string nome) : nome(nome)
-{
+Recurso::Recurso(std::string nome) : nome(nome) {
+    // Construtor
 }
 
-Recurso::~Recurso()
-{
+Recurso::~Recurso() {
+    // Destrutor
 }
 
-std::string Recurso::getNome()
-{
+std::string Recurso::getNome() {
     return nome;
 }

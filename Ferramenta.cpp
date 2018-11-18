@@ -19,6 +19,7 @@ Ferramenta::Ferramenta(std::string nome, double custoDiario) : Recurso(nome) {
     if (custoDiario < 0) {
         throw new invalid_argument("");  //@
     }
+    
     this->nome = nome;  //@
     this->custoDiario = custoDiario;
 }

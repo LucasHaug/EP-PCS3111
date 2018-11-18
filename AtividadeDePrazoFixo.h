@@ -11,10 +11,19 @@
 #ifndef _ATIVIDADE_DE_PRAZO_FIXO_H_
 #define _ATIVIDADE_DE_PRAZO_FIXO_H_
 
+#include "Atividade.h"
+
 class AtividadeDePrazoFixo : public Atividade {
     private:
+        int dias; //@ nome
+        
     public:
+        AtividadeDePrazoFixo(std::string, int dias);
+        virtual ~AtividadeDePrazoFixo();
 
+        virtual int getPrazo();
+
+        int getDuracao();
 };
 
 #endif // _ATIVIDADE_DE_PRAZO_FIXO_H_

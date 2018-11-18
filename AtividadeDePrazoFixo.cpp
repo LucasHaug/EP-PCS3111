@@ -9,3 +9,31 @@
 /***************************************************************/
 
 #include "AtividadeDePrazoFixo.h"
+
+#include <stdexcept>
+
+using namespace std;
+
+AtividadeDePrazoFixo::AtividadeDePrazoFixo(string nome, int dias) : Atividade(nome) {
+    if (dias <= 0) {
+        throw new invalid_argument(""); //@
+    }
+    this->nome = nome; //@
+    this->dias = dias;
+}
+
+AtividadeDePrazoFixo::~AtividadeDePrazoFixo() {
+    // Destrutor
+}
+
+int AtividadeDePrazoFixo::getPrazo() {
+    return dias;
+}
+
+int AtividadeDePrazoFixo::getDuracao() {
+    if (atividadeTerminada) {
+        return duracaoReal;
+    } else {
+        return dias;
+    }
+}

@@ -11,9 +11,19 @@
 #ifndef _ATIVIDADE_DE_ESFORCO_FIXO_H_
 #define _ATIVIDADE_DE_ESFORCO_FIXO_H_
 
+#include "Atividade.h"
+
 class AtividadeDeEsforcoFixo : public Atividade {
     private:
+        int horasNecessarias;
+
     public:
+        AtividadeDeEsforcoFixo(std::string nome, int horasNecessarias);
+        virtual ~AtividadeDeEsforcoFixo();
+
+        virtual int getHorasNecessarias();
+
+        int getDuracao();
 };
 
 #endif // _ATIVIDADE_DE_ESFORCO_FIXO_H_

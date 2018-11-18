@@ -8,21 +8,21 @@
 /**                                                           **/
 /***************************************************************/
 
+#include "Pessoa.h"
+
 #include <cmath>
 #include <stdexcept>
-
-#include "Pessoa.h"
 
 using namespace std;
 
 double Pessoa::valorPorHoraPadrao = 10;
 
-Pessoa::Pessoa(std::string nome, double valorPorHora, int horasDiarias)
+Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias)
     : Recurso(nome) {
     if (valorPorHora <= 0 || horasDiarias <= 0) {  //@
         throw new invalid_argument(
             "valorPorHora e horasDiarias devem ser ambos positivos");  //@
-    } else {
+    } else { //@ precisa do else? (nao) - padronizar
         this->nome = nome;  //@
         this->valorPorHora = valorPorHora;
         this->usaValorPadrao = false;  //@
@@ -30,7 +30,7 @@ Pessoa::Pessoa(std::string nome, double valorPorHora, int horasDiarias)
     }
 }
 
-Pessoa::Pessoa(std::string nome, int horasDiarias) : Recurso(nome) {
+Pessoa::Pessoa(string nome, int horasDiarias) : Recurso(nome) {
     if (valorPorHoraPadrao <= 0 || horasDiarias <= 0) {  //@
         throw new invalid_argument(
             "valorPorHora e horasDiarias devem ser ambos positivos");  //@
@@ -47,7 +47,11 @@ Pessoa::~Pessoa() {
 }
 
 double Pessoa::getValorPorHora() {
-    return valorPorHora;
+    if (usaValorPadrao) { //@
+        return valorPorHoraPadrao;
+    } else {
+        return valorPorHora;
+    }
 }
 
 int Pessoa::getHorasDiarias() {
@@ -72,11 +76,14 @@ double Pessoa::getValorPorHoraPadrao() {
 }
 
 double Pessoa::getCusto(int dias) {
-    double custo = dias * horasDiarias * valorPorHora;
-    return custo;
+    if (dias <= 0 ) {
+        throw new invalid_argument("");
+    }
+
+    return (dias * horasDiarias * getValorPorHora());
 }
 
 void Pessoa::imprimir() {
-    cout << "Pessoa: " << nome << " - R$" << valorPorHora;
+    cout << "Pessoa: " << nome << " - R$" << getValorPorHora();
     cout << " - " << horasDiarias << "h por dia" << endl;
 }

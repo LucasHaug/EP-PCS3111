@@ -8,99 +8,105 @@
 /**                                                           **/
 /***************************************************************/
 
-#include <iostream>
-#include <cmath>
-
 #include "Projeto.h"
 #include "Pessoa.h"
 
+#include <algorithm>  //@
+#include <cmath>
+#include <iostream>
+#include <stdexcept>
+
 using namespace std;
 
-Projeto::Projeto(std::string nome) :
-    nome(nome) {
-    pessoasNoProjeto = new Pessoa*[MAXIMO_RECURSOS];
-    atividades = new Atividade*[MAXIMO_ATIVIDADES];
+Projeto::Projeto(std::string nome) : nome(nome) {
+    atividades = new vector<Atividade*>();     //@
+    recursosNoProjeto = new list<Recurso*>();  //@ exceção
 }
 
 Projeto::~Projeto() {
-    for (int i = 0; i < quantidadeDePessoasNoProjeto; i++) {
-        delete pessoasNoProjeto[i];
-    }
-    delete[] pessoasNoProjeto;
-
-    for (int i = 0; i < quantidadeDeAtividades; i++) {
-        delete atividades[i];
+    for (unsigned int i = 0; i < atividades->size(); i++) {
+        delete atividades->at(i);  //@
     }
     delete[] atividades;
+
+    list<Recurso*>::iterator i = recursosNoProjeto->begin();
+    while (i != recursosNoProjeto->end()) {
+        delete *i;  //@ iterador
+        i++;
+    }
+    delete[] recursosNoProjeto;  //@
 }
 
 std::string Projeto::getNome() {
     return nome;
 }
 
-bool Projeto::adicionar(Atividade* a) {
-
-    if (quantidadeDeAtividades < MAXIMO_ATIVIDADES) {
-        atividades[quantidadeDeAtividades] = a;
-        quantidadeDeAtividades++;
-        return true;
-    }
-    else {
-        return false;
-    }
+void Projeto::adicionar(Atividade* a) {  //@ void
+    getAtividades()->push_back(a);
 }
 
-Atividade** Projeto::getAtividades() {
+vector<Atividade*>* Projeto::getAtividades() {
+    if (atividades->empty()) {
+        return nullptr;  //@ cuidado com underflow + retornar null da certo??
+    }
     return atividades;
 }
 
-int Projeto::getQuantidadeDeAtividades() {
-    return quantidadeDeAtividades;
-}
-
-bool Projeto::adicionarRecurso(Pessoa* p) {
+void Projeto::adicionar(Recurso* r) {  //@ void
     // verificas se a pessoa ja esta na atividade
-    bool estaNaAtividade = false;
+    bool estaNoProjeto = false;
 
-    for (int i = 0; i < quantidadeDePessoasNoProjeto && !estaNaAtividade; i++) {
-        if (pessoasNoProjeto[i] == p) {
-                estaNaAtividade = true;
+    list<Recurso*>::iterator i = recursosNoProjeto->begin();
+    while (i != recursosNoProjeto->end()) {
+        if (*i == r) {  //@ iterador
+            estaNoProjeto = true;
         }
     }
 
+    if (estaNoProjeto) {
+        throw new invalid_argument("");
+    }
+
     // adiciona a pessoa, caso seja possivel
-    if (quantidadeDePessoasNoProjeto < MAXIMO_RECURSOS && !estaNaAtividade) {
-        pessoasNoProjeto[quantidadeDePessoasNoProjeto] = p;
-        quantidadeDePessoasNoProjeto++;
-        return true;
-    }
-    else {
-        return false;
-    }
+    getRecursos()->push_back(r);  //@
 }
 
-Pessoa** Projeto::getPessoas() {
-    return pessoasNoProjeto;
-}
-
-int Projeto::getQuantidadeDePessoas() {
-    return quantidadeDePessoasNoProjeto;
+list<Recurso*>* Projeto::getRecursos() {
+    if (recursosNoProjeto->empty()) {
+        return nullptr;  //@ usar o vaor retornado e n o atributo, ver o q fz
+                         //com o null
+    }
+    return recursosNoProjeto;
 }
 
 int Projeto::getDuracao() {
     int duracao = 0;
 
-    for (int i = 0; i < quantidadeDeAtividades; i++) {
-
-        int duracaoAtividade = atividades[i]->getDuracao();
-
-        // soma a duracao da atividade na do projeto,
-        // caso ela seja diferente de -1
-        if (duracaoAtividade != -1) {
+    for (unsigned int i = 0; i < atividades->size(); i++) {
+        try {
+            int duracaoAtividade = atividades->at(i)->getDuracao();
             duracao += duracaoAtividade;
-        }
-        else {
+        } catch (logic_error* e) {
             duracao += 0;
+            delete e;
+        }
+    }
+    return duracao;
+}
+
+int Projeto::getDuracao(bool terminadas) {
+    int duracao = 0;
+
+    for (unsigned int i = 0; i < atividades->size(); i++) {
+        try {
+            int duracaoAtividade = atividades->at(i)->getDuracao();
+            
+            if (atividades->at(i)->estaTerminada() == terminadas) {
+                duracao += duracaoAtividade;
+            }
+        } catch (logic_error* e) {
+            duracao += 0;
+            delete e;
         }
     }
     return duracao;
@@ -109,33 +115,22 @@ int Projeto::getDuracao() {
 double Projeto::getCusto() {
     double custo = 0;
 
-    for (int i = 0; i < quantidadeDeAtividades; i++) {
-
-        double custoAtividade = atividades[i]->getCusto();
-
-        // soma o custo da atividade no do projeto, caso ele
-        // seja um valor positivo ou 0 (diferente de -1)
-        if (custoAtividade >= 0) {
-            custo += custoAtividade;
-        }
-        else {
-            custo += 0;
-        }
+    for (unsigned int i = 0; i < atividades->size(); i++) {
+        double custoAtividade = atividades->at(i)->getCusto();
+        custo += custoAtividade;
     }
     return custo;
 }
 
-void Projeto::imprimir() {
-    cout << endl << " " << nome << " - " << getDuracao();
-    cout << " dia(s) - R$" << getCusto() << endl;
-    cout << endl << " ----" << endl << endl;
+void Projeto::imprimir() { //@ exceçoes
+    cout << getNome() << " - R$" << getCusto() << endl
+         << "Duracao:" << endl
+         << "- Feito " << getDuracao(true) << " dias" << endl
+         << "- Falta " << getDuracao(false) << " dias" << endl
+         << "- Total " << getDuracao() << " dias" << endl
+         << "----" << endl;
 
-    if (quantidadeDeAtividades > 0) {
-        for (int i = 0; i < quantidadeDeAtividades; i++) {
-            atividades[i]->imprimir();
-        }
-    }
-    else {
-        cout << " NAO HA ATIVIDADES NO PROJETO";
+    for (unsigned int i = 0; i < atividades->size(); i++) {
+        atividades->at(i)->imprimir();
     }
 }

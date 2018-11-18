@@ -11,41 +11,41 @@
 #ifndef _PROJETO_H_
 #define _PROJETO_H_
 
-#include <string>
-#include "Pessoa.h"
 #include "Atividade.h"
+#include "Pessoa.h"
 
-#define MAXIMO_ATIVIDADES 10
+#include <list>
+#include <string>
+#include <vector>
 
-class Projeto
-{
-  private:
+#define MAXIMO_ATIVIDADES 10  //@
+
+using namespace std; //@ padronizar
+
+class Projeto {
+   private:
     std::string nome = nullptr;
+    vector<Atividade*>* atividades;  //@
+    list<Recurso*>* recursosNoProjeto;      //@
 
-    int quantidadeDePessoasNoProjeto = 0;
-    Pessoa **pessoasNoProjeto;
-
-    int quantidadeDeAtividades = 0;
-    Atividade **atividades;
-
-  public:
+   public:
     Projeto(std::string nome);
-    ~Projeto();
+    virtual ~Projeto();
+    virtual std::string getNome();
 
-    std::string getNome();
+    virtual void adicionar(Atividade* a);
+    virtual vector<Atividade*>* getAtividades();
+    // virtual int getQuantidadeDeAtividades();
+    virtual void adicionar(Recurso* r);
+    virtual list<Recurso*>* getRecursos();
 
-    bool adicionar(Atividade *a);
-    Atividade **getAtividades();
-    int getQuantidadeDeAtividades();
+    // virtual bool adicionarRecurso(Pessoa *p);
+    // virtual int getQuantidadeDePessoas();
 
-    bool adicionarRecurso(Pessoa *p);
-    Pessoa **getPessoas();
-    int getQuantidadeDePessoas();
-
-    int getDuracao();
-    double getCusto();
-
-    void imprimir();
+    virtual int getDuracao();
+    virtual int getDuracao(bool terminadas);
+    virtual double getCusto();
+    virtual void imprimir();
 };
 
-#endif // _PROJETO_H_
+#endif  // _PROJETO_H_

@@ -34,7 +34,7 @@ int AtividadeDeEsforcoFixo::getHorasNecessarias() {
 int AtividadeDeEsforcoFixo::getDuracao() {
     double duracao;
 
-    if (atividadeTerminada) {
+    if (atividadeTerminada) { 
         return duracaoReal;
     }
 

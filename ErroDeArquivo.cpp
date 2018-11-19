@@ -9,3 +9,13 @@
 /***************************************************************/
 
 #include "ErroDeArquivo.h"
+
+using namespace std; 
+
+ErroDeArquivo::ErroDeArquivo(string mensagem) : logic_error(mensagem) {
+    // Construtor
+}
+
+ErroDeArquivo::~ErroDeArquivo() {
+    // Destrutor
+}

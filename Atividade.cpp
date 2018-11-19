@@ -71,7 +71,12 @@ double Atividade::getCusto() {
     
     if (quantidadeDeRecursos > 0) {
         for (int i = 0; i < quantidadeDeRecursos; i++) {
-            custo += recursos[i]->getCusto(duracao); //@
+            try {
+                custo += recursos[i]->getCusto(duracao); //@
+            } catch (invalid_argument *e) {
+                custo += 0;
+                delete e;
+            }
         }
         return custo;
     } else {
@@ -94,8 +99,14 @@ bool Atividade::estaTerminada() {
 }   
 
 void Atividade::imprimir() {
-    int duracaoAtividade = getDuracao();
     double custoAtividade = getCusto();
+    int duracaoAtividade;
+    try {
+        duracaoAtividade = getDuracao();
+    } catch (logic_error *e) {
+        duracaoAtividade = 0; //@
+        delete e;
+    }
 
     cout << nome << " - " << duracaoAtividade;
     cout << " dias - R$" << custoAtividade << endl;

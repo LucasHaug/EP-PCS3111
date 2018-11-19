@@ -11,6 +11,12 @@
 #ifndef _ERRO_DE_ARQUIVO_H_
 #define _ERRO_DE_ARQUIVO_H_
 
+#include <stdexcept>
 
+class ErroDeArquivo : public std::logic_error {
+    public:
+        ErroDeArquivo(std::string mensagem);
+        virtual ~ErroDeArquivo();
+};
 
 #endif // _ERRO_DE_ARQUIVO_H_

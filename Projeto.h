@@ -35,12 +35,8 @@ class Projeto {
 
     virtual void adicionar(Atividade* a);
     virtual vector<Atividade*>* getAtividades();
-    // virtual int getQuantidadeDeAtividades();
     virtual void adicionar(Recurso* r);
     virtual list<Recurso*>* getRecursos();
-
-    // virtual bool adicionarRecurso(Pessoa *p);
-    // virtual int getQuantidadeDePessoas();
 
     virtual int getDuracao();
     virtual int getDuracao(bool terminadas);

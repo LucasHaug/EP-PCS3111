@@ -75,7 +75,7 @@ void PersistenciaDeProjeto::salvar(Projeto* p, std::string arquivo) {
 
     for (unsigned int i = 0; i < p->getAtividades()->size(); i++) {
         AtividadeDeEsforcoFixo* ativEFTemporaria =
-            dynamic_cast<AtividadeDeEsforcoFixo*>(p->getAtividades()->at(i));
+            dynamic_cast<AtividadeDeEsforcoFixo*>(p->getAtividades()->at(i)); //@
         if (ativEFTemporaria != nullptr) {
             saida << "E " << ativEFTemporaria->getNome() << " "
                   << ativEFTemporaria->getHorasNecessarias() << " ";
@@ -96,7 +96,7 @@ void PersistenciaDeProjeto::salvar(Projeto* p, std::string arquivo) {
         delete ativEFTemporaria;
 
         AtividadeDePrazoFixo* ativPFTemporaria =
-            dynamic_cast<AtividadeDePrazoFixo*>(p->getAtividades()->at(i));
+            dynamic_cast<AtividadeDePrazoFixo*>(p->getAtividades()->at(i)); //@
         if (ativPFTemporaria != nullptr) {
             saida << "P " << ativPFTemporaria->getNome() << " "
                   << ativPFTemporaria->getPrazo() << " ";
@@ -116,4 +116,17 @@ void PersistenciaDeProjeto::salvar(Projeto* p, std::string arquivo) {
         }
         delete ativPFTemporaria;
     }
+    saida << endl; //@
 }
+
+    // std::vectro<int> vetor;
+
+    // vetor.push_back(2);
+    // vetor.push_back(2);
+    // vetor.push_back(2);
+    // vetor.push_back(2);
+    // vetor.push_back(2);
+
+    // for (auto& n : vetor) {
+    //     cout << n << endl;
+    // }

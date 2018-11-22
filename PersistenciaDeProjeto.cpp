@@ -134,6 +134,8 @@ void PersistenciaDeProjeto::salvar(Projeto* p, std::string arquivo) {
     ofstream saida;
     saida.open(arquivo);
 
+    //@  linha em branco no final
+
     if (!saida.good()) {
         throw new ErroDeArquivo("");
     }

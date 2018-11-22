@@ -21,6 +21,9 @@
 #include "Pessoa.h"
 #include "Atividade.h"
 #include "Projeto.h"
+#include "PersistenciaDeProjeto.h"
+
+#include "ErroDeArquivo.h" //@
 
 using namespace std;
 
@@ -35,67 +38,99 @@ void opcaoUm(Projeto *proj);
 // caso ele tenha escolhido a opcao dois
 void opcaoDois(Projeto *proj);
 
+void opcaoTres(Projeto *proj);
+
+void opcaoCinco();
+
+void opcaoSeis(Projeto *proj);
+
 int main() {
-//     int opcao;
-//     std::string nomeDoProjeto;
+    cout << "Deseja carregar um novo projeto (s/n)?";
+    char opcaoDeCarregar;
+    cin >> opcaoDeCarregar;
+    Projeto* proj;
 
-//     cout << endl << " Bem Vindo ao PoliTrello!" << endl;
+    switch (opcaoDeCarregar) {
+        case 's':
+        case 'S': {
+            cout << endl << " Digite o nome do projeto: ";
+            string nomeDoProjeto;
+            cin >> nomeDoProjeto;
+            proj = new Projeto(nomeDoProjeto);
+            break;
+        }
+        case 'n':
+        case 'N': {
+            cout << "Digite o nome do arquivo:";
+            string nomeDoArquivo;
+            cin >> nomeDoArquivo;
+            PersistenciaDeProjeto* persist = new PersistenciaDeProjeto();
+            proj = persist->carregar(nomeDoArquivo);
+            break;
+        }
+    }
 
-//     // obtem um nome e cria um projeto com ele
-//     cout << endl << " Digite o nome do projeto: ";
-//     getline(cin, nomeDoProjeto);
-//     Projeto* proj = new Projeto(nomeDoProjeto);
+    int opcao;
 
-//     for(;;) {
+    for(;;) {
 
-//         opcao = menuDeOpcoes();
+        opcao = menuDeOpcoes();
 
-//         switch (opcao) {
-//             case 1:
-//                 opcaoUm(proj);
-//                 break;
-//             case 2:
-//                 opcaoDois(proj);
-//                 break;
-//             case 3:
-//                 proj->imprimir();
-//                 break;
-//             case 0:
-//                 cout << endl << " Ate mais (e obrigado pelos peixes)!" << endl << endl;
-//                 delete proj;
-//                 return 0;
-//             default:
-//                 cout << endl << " Digite uma opcao valida..." << endl;
-// break;
-//         }
-//     }
+        switch (opcao) {
+            case 1:
+                opcaoUm(proj);
+                break;
+            case 2:
+                opcaoDois(proj);
+                break;
+            case 3:
+                opcaoTres(proj);
+                break;
+            case 4:
+                proj->imprimir();
+                break;
+            case 5:
+                opcaoCinco();
+                break;
+            case 6:
+                opcaoSeis(proj);
+                break;
+            case 0:
+                delete proj;
+                return 0;
+            default:
+                cout << endl << " Digite uma opcao valida..." << endl; //@
+                break;
+        }
+    }
 }
 
-// // apresenta o menu de opcoes iniciais
-// int menuDeOpcoes() {
-//     int opcao;
+// apresenta o menu de opcoes iniciais
+int menuDeOpcoes() {
+    int opcao;
 
-//     cout << endl
-//         << " 1 - Adicionar pessoa" << endl
-//         << " 2 - Adicionar atividade" << endl
-//         << " 3 - Imprimir projeto" << endl
-//         << " 0 - Sair" << endl;
+    cout << endl //@
+         << "1 - Adicionar recurso" << endl
+         << "2 - Adicionar atividade" << endl
+         << "3 - Terminar atividade" << endl
+         << "4 - Imprimir projeto" << endl
+         << "5 - Definir valor por hora padrao" << endl
+         << "6 - Salvar" << endl
+         << "0 - Sair" << endl;
 
-//     cout << endl << " Escolha a opcao: ";
-//     cin >> opcao;
+    cout << "Escolha a opcao: ";
+    cin >> opcao;
 
-//     // caso a entrada seja valida
-//     if (cin.good()) {
-//         return opcao;
-//     }
-//     // retorna um valor invalido do switch/case
-//     else {
-//         return 42;
-//     }
-// }
+    // caso a entrada seja valida
+    if (cin.good()) {
+        return opcao;
+    }
+    // retorna um valor invalido do switch/case
+    else {
+        return 42; //@
+    }
+}
 
-// // apresenta a interface com o usuario,
-// // caso ele tenha escolhido a opcao um
 // void opcaoUm(Projeto* proj) {
 //     std::string nome;
 //     double valorPorHora;
@@ -125,8 +160,6 @@ int main() {
 //     return;
 // }
 
-// // apresenta a interface com o usuario,
-// // caso ele tenha escolhido a opcao dois
 // void opcaoDois(Projeto* proj) {
 //     std::string nome;
 //     int horasNecessarias;
@@ -202,3 +235,110 @@ int main() {
 //         cout << " Nao eh possivel adicionar uma nova atividade." << endl;
 //     }
 // }
+
+// Adicionar recurso
+void opcaoUm(Projeto* proj) {
+    cout << "Ferramenta (f) ou Pessoa (p): ";
+    char opcaoDeTipoDeRecurso;
+    cin >> opcaoDeTipoDeRecurso;
+
+    Recurso* rec;
+
+    switch (opcaoDeTipoDeRecurso) {
+        case 'f': {
+            cout << "Nome: ";
+            string nomeFerramenta;
+            cin >> nomeFerramenta;
+            
+            cout << "Custo diario: ";
+            double custoDiario;
+            cin >> custoDiario;
+
+            rec = new Ferramenta(nomeFerramenta, custoDiario);
+            break;
+        }
+        case 'p': {
+            cout << "Nome: ";
+            string nomeDaPessoa;
+            cin >> nomeDaPessoa;
+
+            cout << "Horas diarias: ";
+            int horasDiarias;
+            cin >> horasDiarias;
+
+            cout << "Valor por hora padrao (s/n)?";
+            char querValorPadrao;
+            switch (querValorPadrao) {
+                case 's':
+                case 'S': {
+                    rec = new Pessoa(nomeDaPessoa, horasDiarias);
+                    break;
+                }
+                case 'n':
+                case 'N': {
+                    cout << "Valor por hora (em R$): ";
+                    double valPHOras;
+                    cin >> valPHOras;
+
+                    rec = new Pessoa(nomeDaPessoa, valPHOras, horasDiarias);
+                    break;
+                }
+            }
+
+            break;
+        }
+    }
+
+    proj->adicionar(rec);
+
+    return;
+}
+
+// Adicionar atividade
+void opcaoDois(Projeto* proj) {
+    return;
+}
+
+// Terminar atividade
+void opcaoTres(Projeto* proj) {
+    for (unsigned i = 0; i < proj->getAtividades()->size(); i++) {
+        cout <<  i + 1 << " - " 
+             << proj->getAtividades()->at(i)->getNome()
+             << endl;
+    }
+    cout << "Escolha uma atividade ou 0 para cancelar: ";
+    int numeroDaAtividade;
+    cin >> numeroDaAtividade;
+
+    if (proj->getAtividades()->at(numeroDaAtividade)->estaTerminada()) {
+        cout << "Ativadade ja terminada";
+    } else {
+        cout << "Duracao real: ";
+        int duracaoReal;
+        cin >> duracaoReal;
+        proj->getAtividades()->at(numeroDaAtividade)->terminar(duracaoReal);
+    }
+    return;
+}
+
+// Definir valor por hora padrao
+void opcaoCinco() {
+    cout << "Valor atual: R$" << Pessoa::getValorPorHoraPadrao() 
+         << " por hora" << endl
+         << "Novo valor: ";
+    
+    double novoValorPadrao;
+    cin >> novoValorPadrao;
+    Pessoa::setValorPorHoraPadrao(novoValorPadrao);
+    return;
+}
+
+// Salvar
+void opcaoSeis(Projeto* proj) {
+    cout << "Nome do arquivo: ";
+    string nomeArquivo;
+    cin >> nomeArquivo;
+    PersistenciaDeProjeto* persist = new PersistenciaDeProjeto();
+    persist->salvar(proj, nomeArquivo); 
+    return;
+}

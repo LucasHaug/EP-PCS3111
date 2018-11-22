@@ -22,6 +22,9 @@
 #include "Atividade.h"
 #include "Projeto.h"
 #include "PersistenciaDeProjeto.h"
+#include "Ferramenta.h"
+#include "AtividadeDeEsforcoFixo.h"
+#include "AtividadeDePrazoFixo.h"
 
 #include "ErroDeArquivo.h" //@
 
@@ -289,6 +292,7 @@ void opcaoUm(Projeto* proj) {
         }
     }
 
+    //@ exceção
     proj->adicionar(rec);
 
     return;
@@ -296,6 +300,81 @@ void opcaoUm(Projeto* proj) {
 
 // Adicionar atividade
 void opcaoDois(Projeto* proj) {
+    cout << "Nome: ";
+    string nomeDaAtividade;
+    cin >> nomeDaAtividade;
+
+    cout << "Prazo fixo (p) ou trabalho fixo (t)? ";
+    char opcaoDeTipoAtividade;
+    cin >> opcaoDeTipoAtividade;
+
+    Atividade* a;
+
+    switch (opcaoDeTipoAtividade) {
+        case 'p': {
+            cout << "Dias necessarios: ";
+            int diasNecessarios;
+            cin >> diasNecessarios;
+
+            a = new AtividadeDePrazoFixo(nomeDaAtividade, diasNecessarios);
+            
+            break;
+        }
+        case 't': {
+            cout << "Horas necessarias: ";
+            int horasNecessarias;
+            cin >> horasNecessarias;
+
+            a = new AtividadeDeEsforcoFixo(nomeDaAtividade, horasNecessarias);
+
+            break;
+        }
+    }
+    proj->adicionar(a);
+
+    for (;;) {
+        cout << "Deseja adicionar um recurso (s/n)? ";
+        char opcaoDeRecurso;
+        cin >> opcaoDeRecurso;
+
+        switch (opcaoDeRecurso) {
+            case 's':
+            case 'S': {
+                // mostra as opcoes de recursos disponiveis
+                list<Recurso*>::iterator i = proj->getRecursos()->begin();
+                while (i != proj->getRecursos()->end()) {
+                    int j = 1; //@ usar j//@ inicializar j aqui
+                    cout << j << " - ";
+                    (*i)->imprimir();
+                    j++;
+                }
+
+                cout << endl << "Escolha um recurso ou 0 para cancelar: ";
+                int opcaoDeAdicao;
+                cin >> opcaoDeAdicao;
+
+                // // adiciona a pessoa se possivel e se nao for cancelado
+                // if (opcaoDeAdicao > 0 && opcaoDeAdicao <= quantidadeDePessoasNoProjeto) {
+                //     if (a->adicionar(p[opcaoDeAdicao - 1]) == true) {
+                //         // cout << endl << " " << p[opcaoDeAdicao - 1]->getNome()
+                //         //  << " foi adicionado(a) a atividade." << endl;
+                //     }
+                //     else {
+                //         cout << endl << " " << "Nao foi possivel adicionar "
+                //         << p[opcaoDeAdicao - 1]->getNome()
+                //         << " a atividade." << endl;
+                //     }
+                // }
+                break;
+            }
+            case 'n':
+            case 'N': {
+                return;
+            }
+        }
+    }
+    //@ exceção
+
     return;
 }
 
@@ -309,6 +388,7 @@ void opcaoTres(Projeto* proj) {
     cout << "Escolha uma atividade ou 0 para cancelar: ";
     int numeroDaAtividade;
     cin >> numeroDaAtividade;
+    numeroDaAtividade -= 1;
 
     if (proj->getAtividades()->at(numeroDaAtividade)->estaTerminada()) {
         cout << "Ativadade ja terminada";

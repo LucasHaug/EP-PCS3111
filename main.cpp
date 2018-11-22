@@ -57,7 +57,7 @@ int main() {
     switch (opcaoDeCarregar) {
         case 's':
         case 'S': {
-            cout << endl << " Digite o nome do projeto: ";
+            cout << endl << "Digite o nome do projeto: ";
             string nomeDoProjeto;
             cin >> nomeDoProjeto;
             proj = new Projeto(nomeDoProjeto);

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <stdexcept>
 
 // para <streamsize>
 #include <ios>
@@ -271,6 +272,7 @@ void opcaoUm(Projeto* proj) {
 
             cout << "Valor por hora padrao (s/n)?";
             char querValorPadrao;
+            cin >> querValorPadrao;
             switch (querValorPadrao) {
                 case 's':
                 case 'S': {
@@ -350,21 +352,27 @@ void opcaoDois(Projeto* proj) {
                 }
 
                 cout << endl << "Escolha um recurso ou 0 para cancelar: ";
-                int opcaoDeAdicao;
+                unsigned int opcaoDeAdicao;
                 cin >> opcaoDeAdicao;
 
-                // // adiciona a pessoa se possivel e se nao for cancelado
-                // if (opcaoDeAdicao > 0 && opcaoDeAdicao <= quantidadeDePessoasNoProjeto) {
-                //     if (a->adicionar(p[opcaoDeAdicao - 1]) == true) {
-                //         // cout << endl << " " << p[opcaoDeAdicao - 1]->getNome()
-                //         //  << " foi adicionado(a) a atividade." << endl;
-                //     }
-                //     else {
-                //         cout << endl << " " << "Nao foi possivel adicionar "
-                //         << p[opcaoDeAdicao - 1]->getNome()
-                //         << " a atividade." << endl;
-                //     }
-                // }
+                // adiciona a pessoa se possivel e se nao for cancelado
+                if (opcaoDeAdicao > 0 && opcaoDeAdicao <= proj->getRecursos()->size()) {
+                    try {
+                        Recurso* rec;
+                        i = proj->getRecursos()->begin();
+                        for (unsigned int i = 1; i < opcaoDeAdicao; i++) { //@
+                            i++; 
+                        }
+                        rec = (*i);
+                        a->adicionar(rec);
+                    } catch (overflow_error *e) {
+                        cout << "Nao foi possivel adicionar recurso";
+                        break;
+                    } catch (invalid_argument *e) {
+                        cout << "Nao foi possivel adicionar recurso";
+                        break;
+                    }
+                }
                 break;
             }
             case 'n':

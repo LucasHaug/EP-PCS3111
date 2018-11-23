@@ -16,24 +16,18 @@
 #include "Atividade.h"
 #include "AtividadeDeEsforcoFixo.h"
 #include "AtividadeDePrazoFixo.h"
+#include "ErroDeArquivo.h"
 #include "Ferramenta.h"
 #include "PersistenciaDeProjeto.h"
 #include "Pessoa.h"
 #include "Projeto.h"
 
-#include "ErroDeArquivo.h"  //@
-
 using namespace std;
 
-// apresenta o menu de opcoes iniciais
 int menuDeOpcoes();
 
-// apresenta a interface com o usuario,
-// caso ele tenha escolhido a opcao um
 void opcaoUm(Projeto* proj);
 
-// apresenta a interface com o usuario,
-// caso ele tenha escolhido a opcao dois
 void opcaoDois(Projeto* proj);
 
 void opcaoTres(Projeto* proj);
@@ -63,7 +57,12 @@ int main() {
             string nomeDoArquivo;
             cin >> nomeDoArquivo;
             PersistenciaDeProjeto* persist = new PersistenciaDeProjeto();
-            proj = persist->carregar(nomeDoArquivo);
+            try {
+                proj = persist->carregar(nomeDoArquivo);
+            } catch (ErroDeArquivo* e) {
+                delete e;
+                return 0;
+            }
             break;
         }
     }
@@ -73,31 +72,42 @@ int main() {
     for (;;) {
         opcao = menuDeOpcoes();
 
-        switch (opcao) {
-            case 1:
-                opcaoUm(proj);
-                break;
-            case 2:
-                opcaoDois(proj);
-                break;
-            case 3:
-                opcaoTres(proj);
-                break;
-            case 4:
-                proj->imprimir();
-                break;
-            case 5:
-                opcaoCinco();
-                break;
-            case 6:
-                opcaoSeis(proj);
-                break;
-            case 0:
-                delete proj;
-                return 0;
-            default:
-                cout << endl << " Digite uma opcao valida..." << endl;  //@
-                break;
+        try {
+            switch (opcao) {
+                case 1:
+                    opcaoUm(proj);
+                    break;
+                case 2:
+                    opcaoDois(proj);
+                    break;
+                case 3:
+                    opcaoTres(proj);
+                    break;
+                case 4:
+                    proj->imprimir();
+                    break;
+                case 5:
+                    opcaoCinco();
+                    break;
+                case 6:
+                    opcaoSeis(proj);
+                    break;
+                case 0:
+                    delete proj;
+                    return 0;
+            }
+        } catch (overflow_error* e) {
+            delete e;
+            return 0;
+        } catch (invalid_argument* e) {
+            delete e;
+            return 0;
+        } catch (ErroDeArquivo* e) {
+            delete e;
+            return 0;
+        } catch (logic_error* e) {
+            delete e;
+            return 0;
         }
     }
 }
@@ -118,14 +128,7 @@ int menuDeOpcoes() {
     cout << "Escolha a opcao: ";
     cin >> opcao;
 
-    // caso a entrada seja valida
-    if (cin.good()) {
-        return opcao;
-    }
-    // retorna um valor invalido do switch/case
-    else {
-        return 42;  //@
-    }
+    return opcao;
 }
 
 // void opcaoUm(Projeto* proj) {
@@ -294,7 +297,6 @@ void opcaoUm(Projeto* proj) {
         }
     }
 
-    //@ exceção
     proj->adicionar(rec);
 
     return;
@@ -332,6 +334,7 @@ void opcaoDois(Projeto* proj) {
             break;
         }
     }
+
     proj->adicionar(a);
 
     for (;;) {
@@ -344,10 +347,11 @@ void opcaoDois(Projeto* proj) {
             case 'S': {
                 // mostra as opcoes de recursos disponiveis
                 list<Recurso*>::iterator i = proj->getRecursos()->begin();
+                int j = 1;  //@ usar j//@ inicializar j aqui
                 while (i != proj->getRecursos()->end()) {
-                    int j = 1;  //@ usar j//@ inicializar j aqui
                     cout << j << " - ";
                     (*i)->imprimir();
+                    i++;
                     j++;
                 }
 
@@ -367,10 +371,10 @@ void opcaoDois(Projeto* proj) {
                         rec = (*i);
                         a->adicionar(rec);
                     } catch (overflow_error* e) {
-                        cout << "Nao foi possivel adicionar recurso";
+                        cout << "Nao foi possivel adicionar recurso" << endl;
                         break;
                     } catch (invalid_argument* e) {
-                        cout << "Nao foi possivel adicionar recurso";
+                        cout << "Nao foi possivel adicionar recurso" << endl;
                         break;
                     }
                 }
@@ -382,7 +386,6 @@ void opcaoDois(Projeto* proj) {
             }
         }
     }
-    //@ exceção
 
     return;
 }

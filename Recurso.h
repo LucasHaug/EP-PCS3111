@@ -15,7 +15,7 @@
 
 class Recurso
 {
-  protected: //@
+  protected:
     std::string nome;
 
   public:

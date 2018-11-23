@@ -15,7 +15,7 @@
 
 class AtividadeDePrazoFixo : public Atividade {
     private:
-        int dias; //@ nome
+        int dias;
         
     public:
         AtividadeDePrazoFixo(std::string, int dias);

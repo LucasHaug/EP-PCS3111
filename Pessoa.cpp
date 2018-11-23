@@ -20,26 +20,22 @@ double Pessoa::valorPorHoraPadrao = 10;
 Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias)
     : Recurso(nome) {
     if (valorPorHora <= 0 || horasDiarias <= 0) {  //@
-        throw new invalid_argument(
-            "valorPorHora e horasDiarias devem ser ambos positivos");  //@
-    } else { //@ precisa do else? (nao) - padronizar
-        this->nome = nome;  //@
-        this->valorPorHora = valorPorHora;
-        this->usaValorPadrao = false;  //@
-        this->horasDiarias = horasDiarias;
+        throw new invalid_argument("");
     }
+
+    this->valorPorHora = valorPorHora;
+    this->usaValorPadrao = false; 
+    this->horasDiarias = horasDiarias;
 }
 
 Pessoa::Pessoa(string nome, int horasDiarias) : Recurso(nome) {
     if (valorPorHoraPadrao <= 0 || horasDiarias <= 0) {  //@
-        throw new invalid_argument(
-            "valorPorHora e horasDiarias devem ser ambos positivos");  //@
-    } else {
-        this->nome = nome;  //@
-        this->valorPorHora = Pessoa::valorPorHoraPadrao;
-        this->usaValorPadrao = true;  //@
-        this->horasDiarias = horasDiarias;
+        throw new invalid_argument("");
     }
+
+    this->valorPorHora = Pessoa::valorPorHoraPadrao;
+    this->usaValorPadrao = true; 
+    this->horasDiarias = horasDiarias;
 }
 
 Pessoa::~Pessoa() {
@@ -47,7 +43,7 @@ Pessoa::~Pessoa() {
 }
 
 double Pessoa::getValorPorHora() {
-    if (usaValorPadrao) { //@
+    if (usaValorPadrao) { 
         return valorPorHoraPadrao;
     } else {
         return valorPorHora;
@@ -58,17 +54,16 @@ int Pessoa::getHorasDiarias() {
     return horasDiarias;
 }
 
-bool Pessoa::recebeValorPadrao() {  //@
+bool Pessoa::recebeValorPadrao() { 
     return usaValorPadrao;
 }
 
 void Pessoa::setValorPorHoraPadrao(double valor) {
     if (valor <= 0) {
-        throw new invalid_argument(
-            "valorPorHora e horasDiarias devem ser ambos positivos");  //@
-    } else {
-        Pessoa::valorPorHoraPadrao = valor;
+        throw new invalid_argument("");
     }
+
+    Pessoa::valorPorHoraPadrao = valor;
 }
 
 double Pessoa::getValorPorHoraPadrao() {
@@ -76,7 +71,7 @@ double Pessoa::getValorPorHoraPadrao() {
 }
 
 double Pessoa::getCusto(int dias) {
-    if (dias <= 0 ) {
+    if (dias <= 0) {
         throw new invalid_argument("");
     }
 

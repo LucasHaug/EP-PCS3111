@@ -16,9 +16,8 @@ using namespace std;
 
 AtividadeDePrazoFixo::AtividadeDePrazoFixo(string nome, int dias) : Atividade(nome) {
     if (dias <= 0) {
-        throw new invalid_argument(""); //@
+        throw new invalid_argument("");
     }
-    this->nome = nome; //@
     this->dias = dias;
 }
 

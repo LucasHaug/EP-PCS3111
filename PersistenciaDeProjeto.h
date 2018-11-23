@@ -14,7 +14,6 @@
 #include "Projeto.h"
 
 class PersistenciaDeProjeto {
-    private: //@
     public:
     PersistenciaDeProjeto();
     virtual ~PersistenciaDeProjeto();

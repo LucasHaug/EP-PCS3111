@@ -13,7 +13,7 @@
 
 #include <stdexcept>
 
-using namespace std; 
+using namespace std;
 
 Atividade::Atividade(string nome) : nome(nome) {
     recursos = new Recurso*[MAXIMO_RECURSOS];
@@ -38,23 +38,23 @@ void Atividade::adicionar(Recurso* r) {
     }
 
     if (quantidadeDeRecursos == MAXIMO_RECURSOS) {
-        throw new overflow_error("Nao eh possivel adicionar mais recursos");
+        throw new overflow_error("");
     }
-    //@ ordem importa?
+
     if (estaNaAtividade) {
-        throw new invalid_argument("Nao eh possivel adicionar esse recurso"); //@
+        throw new invalid_argument("");
     }
 
     // adiciona o recurso, caso seja possivel
     recursos[quantidadeDeRecursos] = r;
     quantidadeDeRecursos++;
 
-    Pessoa* pessoaTemporaria = dynamic_cast<Pessoa*>(r); //@
-    if (pessoaTemporaria != nullptr) { 
+    Pessoa* pessoaTemporaria = dynamic_cast<Pessoa*>(r);  //@
+    if (pessoaTemporaria != nullptr) {
         horasDisponiveisPorDia += pessoaTemporaria->getHorasDiarias();
         quantidadeDePessoas++;
     }
-    delete pessoaTemporaria; //@
+    delete pessoaTemporaria;  //@
 }
 
 Recurso** Atividade::getRecurso() {
@@ -68,15 +68,10 @@ int Atividade::getQuantidadeDeRecursos() {
 double Atividade::getCusto() {
     double custo = 0;
     int duracao = getDuracao();
-    
+
     if (quantidadeDeRecursos > 0) {
         for (int i = 0; i < quantidadeDeRecursos; i++) {
-            try {
-                custo += recursos[i]->getCusto(duracao); //@
-            } catch (invalid_argument *e) {
-                custo += 0;
-                delete e;
-            }
+            custo += recursos[i]->getCusto(duracao);
         }
         return custo;
     } else {
@@ -96,17 +91,12 @@ void Atividade::terminar(int duracaoReal) {
 
 bool Atividade::estaTerminada() {
     return atividadeTerminada;
-}   
+}
 
 void Atividade::imprimir() {
     double custoAtividade = getCusto();
     int duracaoAtividade;
-    try {
-        duracaoAtividade = getDuracao();
-    } catch (logic_error *e) {
-        duracaoAtividade = 0; //@
-        delete e;
-    }
+    duracaoAtividade = getDuracao();
 
     cout << nome << " - " << duracaoAtividade;
     cout << " dias - R$" << custoAtividade << endl;

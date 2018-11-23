@@ -17,7 +17,7 @@
 
 #include <fstream>
 
-using namespace std;  //@
+using namespace std; 
 
 PersistenciaDeProjeto::PersistenciaDeProjeto() {
     // Construtor
@@ -27,7 +27,7 @@ PersistenciaDeProjeto::~PersistenciaDeProjeto() {
     // Destrutor
 }
 
-Projeto* PersistenciaDeProjeto::carregar(std::string arquivo) {
+Projeto* PersistenciaDeProjeto::carregar(string arquivo) {
     ifstream entrada;
     entrada.open(arquivo);
 
@@ -43,13 +43,13 @@ Projeto* PersistenciaDeProjeto::carregar(std::string arquivo) {
     Projeto* p = new Projeto(nome);
 
     for (int i = 0; i < numeroDeRecursos; i++) {
-        string tipoDeRecurso;
+        char tipoDeRecurso;
         entrada >> tipoDeRecurso;
         string nomeDoRecurso;
         entrada >> nomeDoRecurso;
         Recurso* r;
 
-        if (tipoDeRecurso == "P") { //@
+        if (tipoDeRecurso == 'P') {
             double valPorH;
             entrada >> valPorH;
             int hDiarias;
@@ -67,47 +67,47 @@ Projeto* PersistenciaDeProjeto::carregar(std::string arquivo) {
             r = new Ferramenta(nome, custoD);
 
         }
-        p->adicionar(r);
+            p->adicionar(r);
     }
 
     int numeroDeAtividades;
     entrada >> numeroDeAtividades;
     
     for (int i = 0; i < numeroDeAtividades; i++) {
-        string tipoDeAtividade;
+        char tipoDeAtividade;
         entrada >> tipoDeAtividade;
         string nomeDaAtividade;
         entrada >> nomeDaAtividade;
         Atividade* a;
 
-        if (tipoDeAtividade == "E") { //@
+        if (tipoDeAtividade == 'E') {
             int hNecessarias;
             entrada >> hNecessarias;
-            string ativTerminada;
+            char ativTerminada;
             entrada >> ativTerminada;
             a = new AtividadeDeEsforcoFixo(nomeDaAtividade, hNecessarias);
 
-            if (ativTerminada == "T") { //@
+            if (ativTerminada == 'T') {
                 int duracao;
                 entrada >> duracao;
                 a->terminar(duracao);
             }
 
-            p->adicionar(a);
+                p->adicionar(a);
         } else { // tipoDeAtividade == "P"
             int prazo;
             entrada >> prazo;
-            string ativTerminada;
+            char ativTerminada;
             entrada >> ativTerminada;
             a = new AtividadeDePrazoFixo(nome, prazo);
 
-            if (ativTerminada == "T") { //@
+            if (ativTerminada == 'T') {
                 int duracao;
                 entrada >> duracao;
                 a->terminar(duracao);
             }
 
-            p->adicionar(a);
+                p->adicionar(a);
         }
 
         int numeroDeRecNaAtiv;
@@ -119,7 +119,7 @@ Projeto* PersistenciaDeProjeto::carregar(std::string arquivo) {
 
             list<Recurso*>::iterator k = p->getRecursos()->begin();
             while (k != p->getRecursos()->end()) {
-                if ((*k)->getNome() == nomeDoRec) { //@
+                if ((*k)->getNome() == nomeDoRec) {
                     a->adicionar(*k);
                     break;
                 }
@@ -130,7 +130,7 @@ Projeto* PersistenciaDeProjeto::carregar(std::string arquivo) {
     return p;
 }
 
-void PersistenciaDeProjeto::salvar(Projeto* p, std::string arquivo) {
+void PersistenciaDeProjeto::salvar(Projeto* p, string arquivo) {
     ofstream saida;
     saida.open(arquivo);
 

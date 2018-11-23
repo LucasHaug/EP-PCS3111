@@ -17,9 +17,8 @@ using namespace std;
 
 AtividadeDeEsforcoFixo::AtividadeDeEsforcoFixo(string nome, int horasNecessarias) : Atividade(nome) {
     if (horasNecessarias <= 0) {
-        throw new invalid_argument(""); //@
+        throw new invalid_argument("");
     }
-    this->nome = nome; //@
     this->horasNecessarias = horasNecessarias;
 }
 

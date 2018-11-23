@@ -23,7 +23,7 @@ class Atividade {
     Recurso** recursos;
     int quantidadeDeRecursos = 0;
     int quantidadeDePessoas = 0;
-    int duracaoReal = 0; //@
+    int duracaoReal = 0; 
     bool atividadeTerminada = false;
 
    public:

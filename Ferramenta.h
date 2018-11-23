@@ -16,7 +16,7 @@
 #include <string>
 
 class Ferramenta : public Recurso {
-   private:  //@
+   private:
     double custoDiario;
 
    public:

@@ -18,15 +18,13 @@
 #include <string>
 #include <vector>
 
-#define MAXIMO_ATIVIDADES 10  //@
-
-using namespace std;  //@ padronizar
+using namespace std;
 
 class Projeto {
    private:
     std::string nome = nullptr;
-    vector<Atividade*>* atividades;     //@
-    list<Recurso*>* recursosNoProjeto;  //@
+    std::vector<Atividade*>* atividades;     //@
+    std::list<Recurso*>* recursosNoProjeto;  //@
 
    public:
     Projeto(std::string nome);
@@ -34,9 +32,9 @@ class Projeto {
     virtual std::string getNome();
 
     virtual void adicionar(Atividade* a);
-    virtual vector<Atividade*>* getAtividades();
+    virtual std::vector<Atividade*>* getAtividades();
     virtual void adicionar(Recurso* r);
-    virtual list<Recurso*>* getRecursos();
+    virtual std::list<Recurso*>* getRecursos();
 
     virtual int getDuracao();
     virtual int getDuracao(bool terminadas);

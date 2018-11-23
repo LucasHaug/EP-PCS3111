@@ -15,12 +15,11 @@
 
 using namespace std;
 
-Ferramenta::Ferramenta(std::string nome, double custoDiario) : Recurso(nome) {
+Ferramenta::Ferramenta(string nome, double custoDiario) : Recurso(nome) {
     if (custoDiario < 0) {
-        throw new invalid_argument("");  //@
+        throw new invalid_argument("");
     }
     
-    this->nome = nome;  //@
     this->custoDiario = custoDiario;
 }
 
@@ -34,11 +33,11 @@ double Ferramenta::getCustoDiario() {
 
 double Ferramenta::getCusto(int dias) {
     if (dias <= 0) {
-        throw new invalid_argument("");  //@
+        throw new invalid_argument("");
     }
     return (dias * custoDiario);
 }
 
 void Ferramenta::imprimir() {
-    cout << "Ferramenta: " << nome << " - R$" << custoDiario << " por dia";
+    cout << "Ferramenta: " << nome << " - R$" << custoDiario << " por dia" << endl;
 }

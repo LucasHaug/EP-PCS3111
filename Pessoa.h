@@ -21,19 +21,19 @@ class Pessoa : public Recurso {
     double valorPorHora = 0;
     int horasDiarias = 0;
     static double valorPorHoraPadrao;
-    bool usaValorPadrao;  //@
+    bool usaValorPadrao;  
 
    public:
     Pessoa(std::string nome, double valorPorHora, int horasDiarias);
-    Pessoa(std::string nome, int horasDiarias);  //@
+    Pessoa(std::string nome, int horasDiarias);  
     virtual ~Pessoa();
 
     virtual double getValorPorHora();
     virtual int getHorasDiarias();
-    virtual bool recebeValorPadrao();  //@
+    virtual bool recebeValorPadrao(); 
 
-    static void setValorPorHoraPadrao(double valor);  //@
-    static double getValorPorHoraPadrao();            //@
+    static void setValorPorHoraPadrao(double valor);  
+    static double getValorPorHoraPadrao();            
 
     double getCusto(int dias);
     void imprimir();

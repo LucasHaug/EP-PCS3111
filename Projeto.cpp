@@ -46,9 +46,6 @@ void Projeto::adicionar(Atividade* a) {  //@ void
 }
 
 vector<Atividade*>* Projeto::getAtividades() {
-    if (atividades->empty()) {
-        return nullptr;  //@ cuidado com underflow + retornar null da certo??
-    }
     return atividades;
 }
 
@@ -72,10 +69,6 @@ void Projeto::adicionar(Recurso* r) {  //@ void
 }
 
 list<Recurso*>* Projeto::getRecursos() {
-    if (recursosNoProjeto->empty()) {
-        return nullptr;  //@ usar o vaor retornado e n o atributo, ver o q fz
-                         //com o null
-    }
     return recursosNoProjeto;
 }
 

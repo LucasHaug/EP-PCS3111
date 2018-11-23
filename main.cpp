@@ -1,4 +1,4 @@
-/** : std::stringtringg*******************************************/
+/***************************************************************/
 /**                                                           **/
 /**   Aluno: Lucas Haug                                       **/
 /**   Número USP: 10773565                                    **/
@@ -8,26 +8,20 @@
 /**                                                           **/
 /***************************************************************/
 
-#include <iostream>
-#include <string>
 #include <cmath>
+#include <iostream>
 #include <stdexcept>
+#include <string>
 
-// para <streamsize>
-#include <ios>
-
-// para numeric_limits
-#include <limits>
-
-#include "Pessoa.h"
 #include "Atividade.h"
-#include "Projeto.h"
-#include "PersistenciaDeProjeto.h"
-#include "Ferramenta.h"
 #include "AtividadeDeEsforcoFixo.h"
 #include "AtividadeDePrazoFixo.h"
+#include "Ferramenta.h"
+#include "PersistenciaDeProjeto.h"
+#include "Pessoa.h"
+#include "Projeto.h"
 
-#include "ErroDeArquivo.h" //@
+#include "ErroDeArquivo.h"  //@
 
 using namespace std;
 
@@ -36,20 +30,20 @@ int menuDeOpcoes();
 
 // apresenta a interface com o usuario,
 // caso ele tenha escolhido a opcao um
-void opcaoUm(Projeto *proj);
+void opcaoUm(Projeto* proj);
 
 // apresenta a interface com o usuario,
 // caso ele tenha escolhido a opcao dois
-void opcaoDois(Projeto *proj);
+void opcaoDois(Projeto* proj);
 
-void opcaoTres(Projeto *proj);
+void opcaoTres(Projeto* proj);
 
 void opcaoCinco();
 
-void opcaoSeis(Projeto *proj);
+void opcaoSeis(Projeto* proj);
 
 int main() {
-    cout << "Deseja carregar um novo projeto (s/n)?";
+    cout << "Deseja carregar um novo projeto (s/n)? ";
     char opcaoDeCarregar;
     cin >> opcaoDeCarregar;
     Projeto* proj;
@@ -65,7 +59,7 @@ int main() {
         }
         case 'n':
         case 'N': {
-            cout << "Digite o nome do arquivo:";
+            cout << "Digite o nome do arquivo: ";
             string nomeDoArquivo;
             cin >> nomeDoArquivo;
             PersistenciaDeProjeto* persist = new PersistenciaDeProjeto();
@@ -76,8 +70,7 @@ int main() {
 
     int opcao;
 
-    for(;;) {
-
+    for (;;) {
         opcao = menuDeOpcoes();
 
         switch (opcao) {
@@ -103,7 +96,7 @@ int main() {
                 delete proj;
                 return 0;
             default:
-                cout << endl << " Digite uma opcao valida..." << endl; //@
+                cout << endl << " Digite uma opcao valida..." << endl;  //@
                 break;
         }
     }
@@ -113,7 +106,7 @@ int main() {
 int menuDeOpcoes() {
     int opcao;
 
-    cout << endl //@
+    cout << endl  //@
          << "1 - Adicionar recurso" << endl
          << "2 - Adicionar atividade" << endl
          << "3 - Terminar atividade" << endl
@@ -131,7 +124,7 @@ int menuDeOpcoes() {
     }
     // retorna um valor invalido do switch/case
     else {
-        return 42; //@
+        return 42;  //@
     }
 }
 
@@ -156,10 +149,12 @@ int menuDeOpcoes() {
 
 //     // adiciona a pessoa ao projeto, caso seja possivel
 //     if (proj->adicionarRecurso(p) == true) {
-//         // cout << endl << " " << nome << " foi adicionado(a) ao projeto." << endl;
+//         // cout << endl << " " << nome << " foi adicionado(a) ao projeto." <<
+//         endl;
 //     }
 //     else {
-//         cout << endl << " " << "Nao foi possivel adicionar " << nome << " ao projeto." << endl;
+//         cout << endl << " " << "Nao foi possivel adicionar " << nome << " ao
+//         projeto." << endl;
 //     }
 //     return;
 // }
@@ -198,9 +193,11 @@ int menuDeOpcoes() {
 //                 case 'S': {
 //                     int opcaoDeAdicao;
 //                     Pessoa** p = proj->getPessoas();
-//                     int quantidadeDePessoasNoProjeto = proj->getQuantidadeDePessoas();
+//                     int quantidadeDePessoasNoProjeto =
+//                     proj->getQuantidadeDePessoas();
 
-//                     cout << endl << " Adicionar recursos a atividade " << nome << endl << endl;
+//                     cout << endl << " Adicionar recursos a atividade " <<
+//                     nome << endl << endl;
 
 //                     // mostra as opcoes de recursos disponiveis
 //                     for (int i = 0; i < quantidadeDePessoasNoProjeto; i++) {
@@ -208,17 +205,20 @@ int menuDeOpcoes() {
 //                         p[i]->imprimir();
 //                     }
 
-//                     cout << endl << " Escolha uma pessoa ou 0 para cancelar: ";
-//                     cin >> opcaoDeAdicao;
+//                     cout << endl << " Escolha uma pessoa ou 0 para cancelar:
+//                     "; cin >> opcaoDeAdicao;
 
 //                     // adiciona a pessoa se possivel e se nao for cancelado
-//                     if (opcaoDeAdicao > 0 && opcaoDeAdicao <= quantidadeDePessoasNoProjeto) {
+//                     if (opcaoDeAdicao > 0 && opcaoDeAdicao <=
+//                     quantidadeDePessoasNoProjeto) {
 //                         if (a->adicionar(p[opcaoDeAdicao - 1]) == true) {
-//                             // cout << endl << " " << p[opcaoDeAdicao - 1]->getNome()
+//                             // cout << endl << " " << p[opcaoDeAdicao -
+//                             1]->getNome()
 //                             //  << " foi adicionado(a) a atividade." << endl;
 //                         }
 //                         else {
-//                             cout << endl << " " << "Nao foi possivel adicionar "
+//                             cout << endl << " " << "Nao foi possivel
+//                             adicionar "
 //                             << p[opcaoDeAdicao - 1]->getNome()
 //                             << " a atividade." << endl;
 //                         }
@@ -253,7 +253,7 @@ void opcaoUm(Projeto* proj) {
             cout << "Nome: ";
             string nomeFerramenta;
             cin >> nomeFerramenta;
-            
+
             cout << "Custo diario: ";
             double custoDiario;
             cin >> custoDiario;
@@ -270,7 +270,7 @@ void opcaoUm(Projeto* proj) {
             int horasDiarias;
             cin >> horasDiarias;
 
-            cout << "Valor por hora padrao (s/n)?";
+            cout << "Valor por hora padrao (s/n)? ";
             char querValorPadrao;
             cin >> querValorPadrao;
             switch (querValorPadrao) {
@@ -319,7 +319,7 @@ void opcaoDois(Projeto* proj) {
             cin >> diasNecessarios;
 
             a = new AtividadeDePrazoFixo(nomeDaAtividade, diasNecessarios);
-            
+
             break;
         }
         case 't': {
@@ -345,7 +345,7 @@ void opcaoDois(Projeto* proj) {
                 // mostra as opcoes de recursos disponiveis
                 list<Recurso*>::iterator i = proj->getRecursos()->begin();
                 while (i != proj->getRecursos()->end()) {
-                    int j = 1; //@ usar j//@ inicializar j aqui
+                    int j = 1;  //@ usar j//@ inicializar j aqui
                     cout << j << " - ";
                     (*i)->imprimir();
                     j++;
@@ -356,19 +356,20 @@ void opcaoDois(Projeto* proj) {
                 cin >> opcaoDeAdicao;
 
                 // adiciona a pessoa se possivel e se nao for cancelado
-                if (opcaoDeAdicao > 0 && opcaoDeAdicao <= proj->getRecursos()->size()) {
+                if (opcaoDeAdicao > 0 &&
+                    opcaoDeAdicao <= proj->getRecursos()->size()) {
                     try {
                         Recurso* rec;
                         i = proj->getRecursos()->begin();
-                        for (unsigned int i = 1; i < opcaoDeAdicao; i++) { //@
-                            i++; 
+                        for (unsigned int i = 1; i < opcaoDeAdicao; i++) {  //@
+                            i++;
                         }
                         rec = (*i);
                         a->adicionar(rec);
-                    } catch (overflow_error *e) {
+                    } catch (overflow_error* e) {
                         cout << "Nao foi possivel adicionar recurso";
                         break;
-                    } catch (invalid_argument *e) {
+                    } catch (invalid_argument* e) {
                         cout << "Nao foi possivel adicionar recurso";
                         break;
                     }
@@ -389,8 +390,7 @@ void opcaoDois(Projeto* proj) {
 // Terminar atividade
 void opcaoTres(Projeto* proj) {
     for (unsigned i = 0; i < proj->getAtividades()->size(); i++) {
-        cout <<  i + 1 << " - " 
-             << proj->getAtividades()->at(i)->getNome()
+        cout << i + 1 << " - " << proj->getAtividades()->at(i)->getNome()
              << endl;
     }
     cout << "Escolha uma atividade ou 0 para cancelar: ";
@@ -411,10 +411,10 @@ void opcaoTres(Projeto* proj) {
 
 // Definir valor por hora padrao
 void opcaoCinco() {
-    cout << "Valor atual: R$" << Pessoa::getValorPorHoraPadrao() 
-         << " por hora" << endl
+    cout << "Valor atual: R$" << Pessoa::getValorPorHoraPadrao() << " por hora"
+         << endl
          << "Novo valor: ";
-    
+
     double novoValorPadrao;
     cin >> novoValorPadrao;
     Pessoa::setValorPorHoraPadrao(novoValorPadrao);
@@ -427,6 +427,6 @@ void opcaoSeis(Projeto* proj) {
     string nomeArquivo;
     cin >> nomeArquivo;
     PersistenciaDeProjeto* persist = new PersistenciaDeProjeto();
-    persist->salvar(proj, nomeArquivo); 
+    persist->salvar(proj, nomeArquivo);
     return;
 }

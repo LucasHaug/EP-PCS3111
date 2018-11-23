@@ -25,7 +25,8 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ]
+            ],
+            "preLaunchTask": "Build"
         },
         {
             "name": "(gdb) Launch Linux",
@@ -45,7 +46,8 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ]
+            ],
+            "preLaunchTask": "Build"
         }
     ]
 }

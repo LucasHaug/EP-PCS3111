@@ -20,13 +20,13 @@
 
 #define MAXIMO_ATIVIDADES 10  //@
 
-using namespace std; //@ padronizar
+using namespace std;  //@ padronizar
 
 class Projeto {
    private:
     std::string nome = nullptr;
-    vector<Atividade*>* atividades;  //@
-    list<Recurso*>* recursosNoProjeto;      //@
+    vector<Atividade*>* atividades;     //@
+    list<Recurso*>* recursosNoProjeto;  //@
 
    public:
     Projeto(std::string nome);

@@ -16,7 +16,7 @@
 using namespace std;
 
 Atividade::Atividade(string nome) : nome(nome) {
-    recursos = new Recurso*[MAXIMO_RECURSOS];
+    recursos = new Recurso*[MAX_RECURSOS];
 }
 
 Atividade::~Atividade() {
@@ -37,7 +37,7 @@ void Atividade::adicionar(Recurso* r) {
         }
     }
 
-    if (quantidadeDeRecursos == MAXIMO_RECURSOS) {
+    if (quantidadeDeRecursos == MAX_RECURSOS) {
         throw new overflow_error("");
     }
 

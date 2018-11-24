@@ -33,7 +33,7 @@ class Atividade {
     virtual std::string getNome();
 
     virtual void adicionar(Recurso* r);
-    virtual Recurso** getRecurso();
+    virtual Recurso** getRecursos();
     virtual int getQuantidadeDeRecursos();
 
     virtual int getDuracao() = 0;

@@ -18,22 +18,22 @@
 using namespace std;
 
 Projeto::Projeto(string nome) : nome(nome) {
-    atividades = new vector<Atividade*>();     //@
-    recursosNoProjeto = new list<Recurso*>();  //@ 
+    atividades = new vector<Atividade*>();    
+    recursosNoProjeto = new list<Recurso*>();  
 }
 
 Projeto::~Projeto() {
     for (unsigned int i = 0; i < atividades->size(); i++) {
-        delete atividades->at(i);  //@
+        delete atividades->at(i);  
     }
     delete[] atividades;
 
     list<Recurso*>::iterator i = recursosNoProjeto->begin();
     while (i != recursosNoProjeto->end()) {
-        delete *i;  //@ iterador
+        delete *i;  
         i++;
     }
-    delete[] recursosNoProjeto;  //@
+    delete[] recursosNoProjeto; 
 }
 
 string Projeto::getNome() {
@@ -54,7 +54,7 @@ void Projeto::adicionar(Recurso* r) {
 
     list<Recurso*>::iterator i = recursosNoProjeto->begin();
     while (i != recursosNoProjeto->end()) {
-        if (*i == r) {  //@ iterador
+        if (*i == r) {  
             estaNoProjeto = true;
         }
         i++;
@@ -65,7 +65,7 @@ void Projeto::adicionar(Recurso* r) {
     }
 
     // adiciona a pessoa, caso seja possivel
-    getRecursos()->push_back(r);  //@
+    getRecursos()->push_back(r); 
 }
 
 list<Recurso*>* Projeto::getRecursos() {

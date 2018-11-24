@@ -49,15 +49,14 @@ void Atividade::adicionar(Recurso* r) {
     recursos[quantidadeDeRecursos] = r;
     quantidadeDeRecursos++;
 
-    Pessoa* pessoaTemporaria = dynamic_cast<Pessoa*>(r);  //@
+    Pessoa* pessoaTemporaria = dynamic_cast<Pessoa*>(r);
     if (pessoaTemporaria != nullptr) {
         horasDisponiveisPorDia += pessoaTemporaria->getHorasDiarias();
         quantidadeDePessoas++;
     }
-    delete pessoaTemporaria;  //@
 }
 
-Recurso** Atividade::getRecurso() {
+Recurso** Atividade::getRecursos() {
     return recursos;
 }
 

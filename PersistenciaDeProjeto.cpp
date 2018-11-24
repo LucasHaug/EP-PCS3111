@@ -56,15 +56,15 @@ Projeto* PersistenciaDeProjeto::carregar(string arquivo) {
             entrada >> hDiarias;
 
             if (valPorH == -1) {
-                r = new Pessoa(nome, hDiarias);
+                r = new Pessoa(nomeDoRecurso, hDiarias);
             } else {
-                r = new Pessoa(nome, valPorH, hDiarias);
+                r = new Pessoa(nomeDoRecurso, valPorH, hDiarias);
             }
         } else { // tipoDeRecurso == "F"
             double custoD;
             entrada >> custoD;
             
-            r = new Ferramenta(nome, custoD);
+            r = new Ferramenta(nomeDoRecurso, custoD);
 
         }
             p->adicionar(r);
@@ -99,7 +99,7 @@ Projeto* PersistenciaDeProjeto::carregar(string arquivo) {
             entrada >> prazo;
             char ativTerminada;
             entrada >> ativTerminada;
-            a = new AtividadeDePrazoFixo(nome, prazo);
+            a = new AtividadeDePrazoFixo(nomeDaAtividade, prazo);
 
             if (ativTerminada == 'T') {
                 int duracao;
@@ -123,6 +123,7 @@ Projeto* PersistenciaDeProjeto::carregar(string arquivo) {
                     a->adicionar(*k);
                     break;
                 }
+                k++;
             }
         }
     }
@@ -134,8 +135,6 @@ void PersistenciaDeProjeto::salvar(Projeto* p, string arquivo) {
     ofstream saida;
     saida.open(arquivo);
 
-    //@  linha em branco no final
-
     if (!saida.good()) {
         throw new ErroDeArquivo("");
     }
@@ -143,8 +142,8 @@ void PersistenciaDeProjeto::salvar(Projeto* p, string arquivo) {
     saida << p->getNome() << endl << p->getRecursos()->size() << endl;
 
     list<Recurso*>::iterator i = p->getRecursos()->begin();
-    while (i != p->getRecursos()->end()) {                     //@ inclui o fim
-        Pessoa* pessoaTemporaria = dynamic_cast<Pessoa*>(*i);  //@
+    while (i != p->getRecursos()->end()) {
+        Pessoa* pessoaTemporaria = dynamic_cast<Pessoa*>(*i);  
         if (pessoaTemporaria != nullptr) {
             saida << "P " << pessoaTemporaria->getNome() << " ";
 
@@ -156,15 +155,12 @@ void PersistenciaDeProjeto::salvar(Projeto* p, string arquivo) {
 
             saida << pessoaTemporaria->getHorasDiarias() << endl;
         }
-        delete pessoaTemporaria;
 
-        Ferramenta* ferramentaTemporaria = dynamic_cast<Ferramenta*>(*i);  //@
+        Ferramenta* ferramentaTemporaria = dynamic_cast<Ferramenta*>(*i);  
         if (ferramentaTemporaria != nullptr) {
             saida << "F " << ferramentaTemporaria->getNome() << " "
                   << ferramentaTemporaria->getCustoDiario() << endl;
         }
-        delete ferramentaTemporaria;
-
         i++;
     }
 
@@ -172,7 +168,7 @@ void PersistenciaDeProjeto::salvar(Projeto* p, string arquivo) {
 
     for (unsigned int i = 0; i < p->getAtividades()->size(); i++) {
         AtividadeDeEsforcoFixo* ativEFTemporaria =
-            dynamic_cast<AtividadeDeEsforcoFixo*>(p->getAtividades()->at(i)); //@
+            dynamic_cast<AtividadeDeEsforcoFixo*>(p->getAtividades()->at(i)); 
         if (ativEFTemporaria != nullptr) {
             saida << "E " << ativEFTemporaria->getNome() << " "
                   << ativEFTemporaria->getHorasNecessarias() << " ";
@@ -186,14 +182,13 @@ void PersistenciaDeProjeto::salvar(Projeto* p, string arquivo) {
             saida << ativEFTemporaria->getQuantidadeDeRecursos() << endl;
 
             for (int i = 0; i < ativEFTemporaria->getQuantidadeDeRecursos(); i++) {
-                saida << ativEFTemporaria->getRecurso()[i]->getNome() << " ";
+                saida << ativEFTemporaria->getRecursos()[i]->getNome() << " ";
             }
             saida << endl;
         }
-        delete ativEFTemporaria;
 
         AtividadeDePrazoFixo* ativPFTemporaria =
-            dynamic_cast<AtividadeDePrazoFixo*>(p->getAtividades()->at(i)); //@
+            dynamic_cast<AtividadeDePrazoFixo*>(p->getAtividades()->at(i)); 
         if (ativPFTemporaria != nullptr) {
             saida << "P " << ativPFTemporaria->getNome() << " "
                   << ativPFTemporaria->getPrazo() << " ";
@@ -207,23 +202,10 @@ void PersistenciaDeProjeto::salvar(Projeto* p, string arquivo) {
             saida << ativPFTemporaria->getQuantidadeDeRecursos() << endl;
 
             for (int i = 0; i < ativPFTemporaria->getQuantidadeDeRecursos(); i++) {
-                saida << ativPFTemporaria->getRecurso()[i]->getNome() << " ";
+                saida << ativPFTemporaria->getRecursos()[i]->getNome() << " ";
             }
             saida << endl;
         }
-        delete ativPFTemporaria;
     }
-    saida << endl; //@
+    saida << endl; 
 }
-
-    // std::vectro<int> vetor; //@
-
-    // vetor.push_back(2);
-    // vetor.push_back(2);
-    // vetor.push_back(2);
-    // vetor.push_back(2);
-    // vetor.push_back(2);
-
-    // for (auto& n : vetor) {
-    //     cout << n << endl;
-    // }

@@ -23,8 +23,8 @@ using namespace std;
 class Projeto {
    private:
     std::string nome = nullptr;
-    std::vector<Atividade*>* atividades;     //@
-    std::list<Recurso*>* recursosNoProjeto;  //@
+    std::vector<Atividade*>* atividades;     
+    std::list<Recurso*>* recursosNoProjeto;  
 
    public:
     Projeto(std::string nome);

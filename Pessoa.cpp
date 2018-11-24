@@ -19,7 +19,7 @@ double Pessoa::valorPorHoraPadrao = 10;
 
 Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias)
     : Recurso(nome) {
-    if (valorPorHora <= 0 || horasDiarias <= 0) {  //@
+    if (valorPorHora <= 0 || horasDiarias <= 0) {  
         throw new invalid_argument("");
     }
 
@@ -29,7 +29,7 @@ Pessoa::Pessoa(string nome, double valorPorHora, int horasDiarias)
 }
 
 Pessoa::Pessoa(string nome, int horasDiarias) : Recurso(nome) {
-    if (valorPorHoraPadrao <= 0 || horasDiarias <= 0) {  //@
+    if (valorPorHoraPadrao <= 0 || horasDiarias <= 0) {  
         throw new invalid_argument("");
     }
 

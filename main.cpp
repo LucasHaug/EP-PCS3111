@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <iterator>
 #include <stdexcept>
 #include <string>
 
@@ -45,7 +46,7 @@ int main() {
     switch (opcaoDeCarregar) {
         case 's':
         case 'S': {
-            cout << endl << "Digite o nome do projeto: ";
+            cout << "Digite o nome do projeto: ";
             string nomeDoProjeto;
             cin >> nomeDoProjeto;
             proj = new Projeto(nomeDoProjeto);
@@ -116,8 +117,7 @@ int main() {
 int menuDeOpcoes() {
     int opcao;
 
-    cout << endl  //@
-         << "1 - Adicionar recurso" << endl
+    cout << "1 - Adicionar recurso" << endl
          << "2 - Adicionar atividade" << endl
          << "3 - Terminar atividade" << endl
          << "4 - Imprimir projeto" << endl
@@ -130,118 +130,6 @@ int menuDeOpcoes() {
 
     return opcao;
 }
-
-// void opcaoUm(Projeto* proj) {
-//     std::string nome;
-//     double valorPorHora;
-//     int horasDiarias;
-
-//     cout << endl << " Adicionar Pessoa:" << endl << endl;
-
-//     // obtem as informacoes da pessoa
-//     cout << " Nome: ";
-//     cin.ignore(100, '\n');
-//     getline(cin, nome);
-//     cout << " Valor por hora (em R$): ";
-//     cin >> valorPorHora;
-//     cout << " Horas diarias: ";
-//     cin >> horasDiarias;
-
-//     // cria uma nova pessoa
-//     Pessoa* p = new Pessoa(nome, valorPorHora, horasDiarias);
-
-//     // adiciona a pessoa ao projeto, caso seja possivel
-//     if (proj->adicionarRecurso(p) == true) {
-//         // cout << endl << " " << nome << " foi adicionado(a) ao projeto." <<
-//         endl;
-//     }
-//     else {
-//         cout << endl << " " << "Nao foi possivel adicionar " << nome << " ao
-//         projeto." << endl;
-//     }
-//     return;
-// }
-
-// void opcaoDois(Projeto* proj) {
-//     std::string nome;
-//     int horasNecessarias;
-
-//     cout << endl << " Adicionar Atividade:" << endl << endl;
-
-//     // obtem as informacoes da atividade
-//     cout << " Nome: ";
-//     cin.ignore(100, '\n');
-//     getline(cin, nome);
-//     cout << " Horas necessarias: ";
-//     cin >> horasNecessarias;
-
-//     // cria uma nova atividade
-//     Atividade* a = new Atividade(nome, horasNecessarias);
-
-//     // adiciona a atividade ao projeto, caso possivel
-//     if (proj->adicionar(a) == true) {
-//         // cout << endl << " A atividade " << nome <<
-//         //     " foi adicionada ao projeto." << endl;
-
-//         // adiciona recursos a atividade, se o usuario optar e caso possivel
-//         for (;;) {
-//             char opcaoDeRecurso;
-
-//             cout << endl << " Atividade " << nome << ":" << endl;
-//             cout << endl << " Deseja adicionar um recurso (s/n)? ";
-//             cin >> opcaoDeRecurso;
-
-//             switch (opcaoDeRecurso) {
-//                 case 's':
-//                 case 'S': {
-//                     int opcaoDeAdicao;
-//                     Pessoa** p = proj->getPessoas();
-//                     int quantidadeDePessoasNoProjeto =
-//                     proj->getQuantidadeDePessoas();
-
-//                     cout << endl << " Adicionar recursos a atividade " <<
-//                     nome << endl << endl;
-
-//                     // mostra as opcoes de recursos disponiveis
-//                     for (int i = 0; i < quantidadeDePessoasNoProjeto; i++) {
-//                         cout << " " << i + 1 << " - ";
-//                         p[i]->imprimir();
-//                     }
-
-//                     cout << endl << " Escolha uma pessoa ou 0 para cancelar:
-//                     "; cin >> opcaoDeAdicao;
-
-//                     // adiciona a pessoa se possivel e se nao for cancelado
-//                     if (opcaoDeAdicao > 0 && opcaoDeAdicao <=
-//                     quantidadeDePessoasNoProjeto) {
-//                         if (a->adicionar(p[opcaoDeAdicao - 1]) == true) {
-//                             // cout << endl << " " << p[opcaoDeAdicao -
-//                             1]->getNome()
-//                             //  << " foi adicionado(a) a atividade." << endl;
-//                         }
-//                         else {
-//                             cout << endl << " " << "Nao foi possivel
-//                             adicionar "
-//                             << p[opcaoDeAdicao - 1]->getNome()
-//                             << " a atividade." << endl;
-//                         }
-//                     }
-//                     break;
-//                 }
-//                 case 'n':
-//                 case 'N': {
-//                     return;
-//                 }
-//                 default:
-//                     cout << endl << " Digite uma opcao valida..." << endl;
-//                     break;
-//             }
-//         }
-//     }
-//     else {
-//         cout << " Nao eh possivel adicionar uma nova atividade." << endl;
-//     }
-// }
 
 // Adicionar recurso
 void opcaoUm(Projeto* proj) {
@@ -345,13 +233,10 @@ void opcaoDois(Projeto* proj) {
         switch (opcaoDeRecurso) {
             case 's':
             case 'S': {
-                // mostra as opcoes de recursos disponiveis
-                list<Recurso*>::iterator i = proj->getRecursos()->begin();
-                int j = 1;  //@ usar j//@ inicializar j aqui
-                while (i != proj->getRecursos()->end()) {
+                int j = 1;
+                for (auto& i : *(proj->getRecursos())) {
                     cout << j << " - ";
-                    (*i)->imprimir();
-                    i++;
+                    i->imprimir();
                     j++;
                 }
 
@@ -364,17 +249,19 @@ void opcaoDois(Projeto* proj) {
                     opcaoDeAdicao <= proj->getRecursos()->size()) {
                     try {
                         Recurso* rec;
-                        i = proj->getRecursos()->begin();
-                        for (unsigned int i = 1; i < opcaoDeAdicao; i++) {  //@
-                            i++;
-                        }
-                        rec = (*i);
+                        list<Recurso*>::iterator k =
+                            proj->getRecursos()->begin();
+                        advance(k, opcaoDeAdicao - 1);
+                        rec = (*k);
+
                         a->adicionar(rec);
                     } catch (overflow_error* e) {
                         cout << "Nao foi possivel adicionar recurso" << endl;
+                        delete e;
                         break;
                     } catch (invalid_argument* e) {
                         cout << "Nao foi possivel adicionar recurso" << endl;
+                        delete e;
                         break;
                     }
                 }

@@ -26,14 +26,12 @@ Projeto::~Projeto() {
     for (unsigned int i = 0; i < atividades->size(); i++) {
         delete atividades->at(i);  
     }
-    delete[] atividades;
 
     list<Recurso*>::iterator i = recursosNoProjeto->begin();
     while (i != recursosNoProjeto->end()) {
         delete *i;  
         i++;
     }
-    delete[] recursosNoProjeto; 
 }
 
 string Projeto::getNome() {

@@ -128,6 +128,10 @@ Projeto* PersistenciaDeProjeto::carregar(string arquivo) {
         }
     }
 
+    if (!entrada.good()) {
+        throw new ErroDeArquivo("");
+    }
+
     return p;
 }
 

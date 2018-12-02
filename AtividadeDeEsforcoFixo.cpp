@@ -36,9 +36,13 @@ int AtividadeDeEsforcoFixo::getDuracao() {
     if (atividadeTerminada) { 
         return duracaoReal;
     }
-
+    
     if (quantidadeDePessoas == 0) {
         throw new logic_error("");
+    }
+
+    if (quantidadeDeRecursos == 0) {
+        return 0;
     }
 
     if (horasDisponiveisPorDia > 0) {

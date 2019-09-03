@@ -1,36 +1,50 @@
 BUILD_DIR := build
-TARGET := EP2
+FLAGS := -g -Wall -Wextra -std=c++11
+COMPILER := g++
+EXECUTABLE := ep
+
+VERBOSE ?= 0
+
+# Verbosity
+ifeq ($(VERBOSE),0)
+AT := @
+else
+AT :=
+endif
 
 SOURCES = $(wildcard *.cpp)
+HEADERS = $(wildcard *.h)
 OBJECTS = $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
 
-.PHONY: all clean run format
+all: ep
 
-all: $(BUILD_DIR) EP2
+ep: $(OBJECTS) 
+	$(AT)$(COMPILER) $(FLAGS) -o $(EXECUTABLE) $(OBJECTS)
 
 $(BUILD_DIR):
-	@echo "Creating build directory"
-	@mkdir -p $@
+	$(AT)echo "Creating build directory"
+	$(AT)mkdir -p $@
 
-$(BUILD_DIR)/%.o: %.cpp
-	g++ -g -Wall -Wextra -std=c++11 -o $@ -c $^
+$(BUILD_DIR)/%.o: %.cpp | $(BUILD_DIR)
+	$(AT)$(COMPILER) $(FLAGS) -o $@ -c $^
 
 clean:
 ifeq ($(OS), Windows_NT)
-	rm $(BUILD_DIR)/*.o *.exe
-	rmdir $(BUILD_DIR)
+	$(AT)rm -rf $(BUILD_DIR) *.exe
 else
-	rm $(BUILD_DIR)/*.o EP2
-	rmdir $(BUILD_DIR)
+	$(AT)rm -rf $(BUILD_DIR) $(EXECUTABLE)
 endif
-
-EP2: $(OBJECTS)
-	g++ -g -Wall -Wextra -o EP2 $(OBJECTS)
 
 run: all
 ifeq ($(OS), Windows_NT)
-	start powershell -NoExit ./EP2
+	$(AT)start powershell -NoExit ./$(EXECUTABLE)
 else
-	tilda -c ./EP2
+	$(AT)tilda -c ./$(EXECUTABLE)
 endif
 
+# Format source code using uncrustify
+format:
+	$(AT)uncrustify -c uncrustify.cfg --replace --no-backup $(SOURCES) $(HEADERS)
+
+
+.PHONY: all clean run format

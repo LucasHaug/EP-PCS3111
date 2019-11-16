@@ -1,7 +1,7 @@
 BUILD_DIR := build
 FLAGS := -g -Wall -Wextra -std=c++11
 COMPILER := g++
-EXECUTABLE := ep
+EXECUTABLE := ep2
 
 VERBOSE ?= 0
 
@@ -12,9 +12,17 @@ else
 AT :=
 endif
 
-SOURCES = $(wildcard *.cpp)
-HEADERS = $(wildcard *.h)
-OBJECTS = $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
+SOURCES = $(shell find src -name "*.cpp")
+HEADERS = $(shell find inc -name "*.h")
+OBJECTS:= $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCES:.cpp=.o)))
+
+vpath %.cpp $(sort $(dir $(SOURCES)))
+
+C_INCLUDES  := $(addprefix -I,                            \
+	$(sort $(dir $(HEADERS)))                             \
+)
+
+FLAGS += $(C_INCLUDES)
 
 all: ep
 

@@ -30,7 +30,7 @@
 *.exe
 *.out
 *.app
-ep
+build/*
 
 # Extras
 *.txt
